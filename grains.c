@@ -4,6 +4,7 @@
 *    Valeur exacte 2^64 -1                           *
 *                                                    *
 *     18446744073709551615    20 chiffres en décimal *
+*     gcc grains.c -o grain -Wall		     * 
 ******************************************************/
 
 
@@ -21,25 +22,9 @@ int main()
 
     printf("%2d %20llu %20llu\n",1 , nb, total);
     for(i=1; i<64; i++){
-      nb = nb * 2;
-      total = total + nb;
+      nb *=  2;
+      total += nb;
     printf("%2d %20llu %20llu\n",i+1 , nb, total);
     }
     return 0;
-
-
-    /* Version avec des nombres flottants 
-    la valeur retournée n'est pas exacte
-
-    double total = 1.0;
-    double    nb = 1.0;
-    int i;
-
-    for(i=0; i<63; i++){
-      nb = nb *2;
-      total = total + nb;
-    }
-    printf("%f\n",total);
-    return 0;
-    */
 }

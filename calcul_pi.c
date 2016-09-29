@@ -3,6 +3,7 @@
 *    En mathématique, nous avons appris que la somme :		*
 *    1 – 1/3 + 1/5 – 1/7 + 1/9 – 1/11 + 1/13 … tend vers pi/4,	*
 *	Compilation : gcc calcul_pi.c -o calcul_pi -Wall	*
+*       Exécution   : time ./calcul_pi				*
 *****************************************************************/
 
 #include <stdio.h>

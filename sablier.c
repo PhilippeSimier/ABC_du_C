@@ -7,24 +7,25 @@
 int main()
 {
    int i,j;
-   int nbBlanc = 1;
+   int nbBlanc;
    int val = 1;
-   int nb;
+   int nbLigne;
 
    printf("Combien de lignes ? ");
-   scanf (" %d",&nb);
+   scanf (" %d",&nbLigne);
    printf("\n");
 
-   for (i=0; i<nb; i++){
-        nbBlanc = (nb/2) - abs((nb/2) - i);
-        for (j=0; j<nbBlanc; j++) printf("   ");
+   for (i=0; i<nbLigne; i++)
+   {
+        nbBlanc = (nbLigne / 2) - abs((nbLigne / 2) - i);
+        for (j=0; j<nbBlanc; j++)
+	    printf("   ");
 
-        for (j=0; j<(nb-2*nbBlanc); j++){
-                printf("%02d ",val);
-                val++; val %= 100;
+        for (j=0; j < (nbLigne - 2 * nbBlanc); j++)
+	{
+                printf("%02d ",val++);
+	        val %= 100;
         }
-        for (j=0; j<nbBlanc; j++) printf("   ");
-
         printf("\n");
    }
    printf("\n");

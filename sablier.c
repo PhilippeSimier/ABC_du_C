@@ -1,6 +1,11 @@
-/****************************************************
-*	  Programme sablier de nombres		    *
-*****************************************************/
+/********************************************************************
+*	  Programme sablier de nombres		    		    *
+*  Nous pouvons représenter un sablier comme ci-dessous avec une    *
+*  suite de nombres dont le plus grand sur la première ligne doit   *
+*  être impair. Par exemple, ici Nbligne  vaut 7.		    *
+*
+*   
+*********************************************************************/
 #include <stdio.h>
 #include <stdlib.h>
 

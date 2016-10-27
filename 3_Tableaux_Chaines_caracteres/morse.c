@@ -10,14 +10,13 @@ int main()
 			".----", "..---", "...--", "....-", ".....", "-....", "--...", "---..", "----."};
 
     char buffer[LONG];
-    char *s;
+    char *s;   // pointeur pour parcourir le tableau
 
     printf("Saisir une phrase \n");
     fgets(buffer, sizeof(buffer), stdin);
     printf("La phrase en morse est : \n");
 
-    s = buffer;
-    for (; *s; s++)
+    for (s = buffer; *s; s++)
     {
     	if (*s >= 'A' && *s <= 'Z')
 	    printf("%s  ", morse[*s - 'A']);

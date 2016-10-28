@@ -1,12 +1,12 @@
 /*******************************************************
 *  Écrivez un programme demandant		       *
-*  une chaine de caractères à l'utilisateur            *
+*  une phrase à l'utilisateur                          *
 *  puis affiche le nombre de fois où apparaît 'a'      *
 *  le nombre de voyelles			       *
 *  le nombre de consommes			       *
 *  le nombre de mots présents			       *
 *  UTILISEZ TOUJOURS fgets() A LA PLACE DE gets().     *
-*  gcc lettre_A.c -o lettre_A -std=c99 -Wall 	       *
+*  gcc phrase.c -o phrase -std=c99 -Wall 	       *
 ********************************************************/
 
 #include <stdio.h>
@@ -105,7 +105,7 @@ int main()
     printf("Le nombre de caractères a est : %d\n", occ(buffer, 'a'));
     printf("Le nombre de voyelles est : %d\n", voyelle(buffer));
     printf("Le nombre de consonnes est : %d\n", consonne(buffer));
-    printf("Le nombre de mots est : %d\n", occ(buffer,' ') + occ(buffer,'\t') + occ(buffer,'\'') + 1);
+    printf("Le nombre de mots est : %d\n", occ(buffer,' ') + occ(buffer,'\t') + occ(buffer,'\'') + occ(buffer,'-') + 1);
     inverse(buffer);
     printf("La phrase inversée est : %s\n", buffer);
     inverse(buffer);

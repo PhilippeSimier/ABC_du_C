@@ -4,6 +4,7 @@
 *  et qui affiche cette dernière.                  *
 *  UTILISEZ TOUJOURS fgets() A LA PLACE DE gets(). *
 *						   *
+*  compilation : gcc clavier.c -o clavier -Wall	   *
 ****************************************************/
 
 #include <stdio.h>
@@ -18,4 +19,5 @@ int main()
     fgets(buffer, sizeof(buffer), stdin);
     printf("%s\n", buffer);
 
+    return 0;
 }

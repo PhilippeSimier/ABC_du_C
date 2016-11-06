@@ -1,0 +1,16 @@
+/********************************************************************************
+*    Correction du Tp copie de fichiers
+*    Sujet :  Écrivez un programme C qui copie un fichier grâce aux fonctions
+*             bas-niveau read(2) et write(2). Le programme prendra deux
+*             arguments sur sa ligne de commande: le nom d'un fichier source
+*             existant et un nom du fichier destination.
+*             On prendra en particulier soin à:
+*             copier par morceaux ni trop gros (pour ne pas saturer la mémoire)
+*             ni trop petits (pour minimiser le nombre d'appels systèmes):
+*             64 Ko semble un bon compromis,
+*             gérer les erreurs fatales (fichier introuvable,
+*             erreur disque, etc.) qu'il faut rapporter à l'utilisateur
+*             (errno(3), strerror(3)),
+*    Compilation : gcc copie.c -o copie -Wall
+*    Execution   : ./copie copie.c toto.c
+********************************************************************************/

@@ -11,18 +11,20 @@ int main()
     int valPiece[5] = {200, 100, 50, 20, 10};
     int prixBoisson;
     int valeurARendre;
-    int nbPiece[5]    = {5, 5, 8, 9, 12};
+    int nbPiece[5]    = {1, 1, 0, 0, 2};
     int pieceUser[5]  = {0, 0, 0, 0, 0};
     int pieceRendu[5] = {0, 0, 0, 0, 0};
     int choix;
     int boucle;
+    int possible;
 
     printf("Système monayeur Bonjour.\n");
 
     do{
         printf("Que voulez-vous faire ?\n");
         printf("1 -> Commander une boisson\n");
-        printf("2 -> Quitter\n");
+        printf("2 -> Afficher le contenu de la caisse\n");
+        printf("3 -> Quitter\n");
         printf("Votre choix : ");
         scanf("%d", &choix);
 
@@ -31,17 +33,25 @@ int main()
             prixBoisson = demanderBoisson();
             valeurARendre = attendrePiece(prixBoisson, pieceUser);
             printf("Somme à rendre : %.1f\n", ((float)(valeurARendre)/100.0));
-            // ajouter les pieces de l'usager dans le monnayeur
-            ajouterPiece(nbPiece, pieceUser);
-            rendrePiece(valeurARendre, valPiece, nbPiece, pieceRendu);
 
-            printf("Pieces rendues :\n");
-            for(boucle = 0; boucle < 5; boucle++){
-		if (pieceRendu[boucle] != 0)
-             		printf("%d piece de %.1f€\n", pieceRendu[boucle], ((float)(valPiece[boucle])/100.0));
-            }
+           possible = rendrePiece(valeurARendre, valPiece, nbPiece, pieceRendu);
+	   if (possible) {
+
+            	printf("Pieces rendues :\n");
+            	for(boucle = 0; boucle < 5; boucle++){
+			if (pieceRendu[boucle] != 0)
+             			printf("%d piece de %.1f€\n", pieceRendu[boucle], ((float)(valPiece[boucle])/100.0));
+            	}
+            	// ajouter les pièces du client dans la caisse
+            	ajouterPiece(nbPiece, pieceUser);
+		}
+	    else
+		printf("Désolé je n'ai pas assez de monnaie en caisse\n");
             break;
         case 2:
+		afficherCaisse( nbPiece, valPiece);
+                break;
+        case 3:
             printf("Au revoir\n");
             break;
         default:
@@ -49,7 +59,7 @@ int main()
             break;
         }
 
-    }while(choix != 2);
+    }while(choix != 3);
 
 
     return 0;

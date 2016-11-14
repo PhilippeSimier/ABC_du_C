@@ -7,10 +7,10 @@
 #include "biblio_monayeur.h"
 
 int main()
-{
-    double valPiece[5] = {2, 1, 0.5, 0.2, 0.1};
-    double prixBoisson;
-    double valeurARendre;
+{   /* la valeur des pièces en centimes d'euros */
+    int valPiece[5] = {200, 100, 50, 20, 10};
+    int prixBoisson;
+    int valeurARendre;
     int nbPiece[5]    = {5, 5, 8, 9, 12};
     int pieceUser[5]  = {0, 0, 0, 0, 0};
     int pieceRendu[5] = {0, 0, 0, 0, 0};
@@ -30,7 +30,7 @@ int main()
         case 1:
             prixBoisson = demanderBoisson();
             valeurARendre = attendrePiece(prixBoisson, pieceUser);
-            printf("Somme à rendre : %.1f\n", valeurARendre);
+            printf("Somme à rendre : %.1f\n", ((float)(valeurARendre)/100.0));
             // ajouter les pieces de l'usager dans le monnayeur
             ajouterPiece(nbPiece, pieceUser);
             rendrePiece(valeurARendre, valPiece, nbPiece, pieceRendu);
@@ -38,7 +38,7 @@ int main()
             printf("Pieces rendues :\n");
             for(boucle = 0; boucle < 5; boucle++){
 		if (pieceRendu[boucle] != 0)
-             		printf("%d piece de %.1f€\n", pieceRendu[boucle], valPiece[boucle]);
+             		printf("%d piece de %.1f€\n", pieceRendu[boucle], ((float)(valPiece[boucle])/100.0));
             }
             break;
         case 2:

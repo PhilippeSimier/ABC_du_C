@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-/* Fonction pour afficher le menu
-   retourne le prix de la boisson choisie */
+/* Fonction pour afficher la liste des boissons et de demander quelle boisson
+ le client désire parmi les boissons disponibles.
+ Retourne le prix de la boisson demandée. */
 int demanderBoisson()
 {
     int choixBoisson;
@@ -24,8 +25,13 @@ int demanderBoisson()
     return prixBoisson;
 }
 
-/* Fonction pour collecter les pièces du client
-   Retoune la somme à rendre              */
+/* Fonction chargée d'attendre que le client place dans le monnayeur
+   suffisamment de pièces selon la boisson choisie.
+   Selon le prix de la boisson, demande au client d'ajouter de la monnaie
+   jusqu'à atteindre ou dépasser le prix de la boisson.
+   Retourne la somme que le monnayeur doit rendre et
+   le tableau des pièces que le client a entrées.  */
+
 int attendrePiece(int prixBoisson, int pieceUser[])
 {
     int piece;
@@ -77,7 +83,8 @@ int attendrePiece(int prixBoisson, int pieceUser[])
 }
 
 /* Fonction pour rendre la monnaie
-   Renvoie 1 si possible ou 0 si pas assez de monnaie disponible dans la caisse */
+   Renvoie 1 si possible ou 0 si pas assez de monnaie disponible 
+   dans la caisse du monayeur*/
 int rendrePiece(int rendrePrix, int valPiece[], int nbPiece[], int pieceRendu[])
 {
     int i;
@@ -85,7 +92,7 @@ int rendrePiece(int rendrePrix, int valPiece[], int nbPiece[], int pieceRendu[])
     for(i = 0; i < 5; i++){
 	pieceRendu[i] = 0;
     }
-    // mise à jours des piéces à rendre on commence par les plus grandes
+    // mise à jours des piéces à rendre, on commence par les plus grandes
     for(i = 0; i < 5; i++){
         // je peux rendre des pieces de la valeur courante
         if(valPiece[i] <= rendrePrix){
@@ -110,14 +117,26 @@ int rendrePiece(int rendrePrix, int valPiece[], int nbPiece[], int pieceRendu[])
 void ajouterPiece( int nbPiece[], int pieceUser[])
 {
     int i;
-
     for(i = 0; i < 5; i++){
-                nbPiece[i] = nbPiece[i] + pieceUser[i];
+         nbPiece[i] = nbPiece[i] + pieceUser[i];
+    }
+}
+
+// Fonction pour afficher la monnaie à rendre
+void afficherMonnaieRendue(int pieceRendu[], int valPiece[])
+{
+    int i;
+    printf("La monnaie à rendre :\n");
+    for(i = 0; i < 5; i++){
+
+	if (pieceRendu[i] != 0)
+           printf("%d pièce(s) de %.1f€\n",  pieceRendu[i], ((float)(valPiece[i])/100.0));
     }
 }
 
 // Fonction pour afficher le contenu de la caisse
-// juste pour vérifier que des petits malins ne viennent pas piquer 
+// juste pour vérifier que des petits malins ne viennent pas piquer
+// dans la caisse !!!
 void afficherCaisse(int nbPiece[], int valPiece[])
 {
     int i;

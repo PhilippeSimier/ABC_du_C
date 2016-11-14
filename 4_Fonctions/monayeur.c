@@ -15,7 +15,6 @@ int main()
     int pieceUser[5]  = {0, 0, 0, 0, 0};
     int pieceRendu[5] = {0, 0, 0, 0, 0};
     int choix;
-    int boucle;
     int possible;
 
     printf("Système monayeur Bonjour.\n");
@@ -29,28 +28,26 @@ int main()
         scanf("%d", &choix);
 
         switch (choix){
+
         case 1:
             prixBoisson = demanderBoisson();
             valeurARendre = attendrePiece(prixBoisson, pieceUser);
-            printf("Somme à rendre : %.1f\n", ((float)(valeurARendre)/100.0));
+            printf("Somme à rendre : %.1f €\n", ((float)(valeurARendre)/100.0));
 
            possible = rendrePiece(valeurARendre, valPiece, nbPiece, pieceRendu);
 	   if (possible) {
-
-            	printf("Pieces rendues :\n");
-            	for(boucle = 0; boucle < 5; boucle++){
-			if (pieceRendu[boucle] != 0)
-             			printf("%d piece de %.1f€\n", pieceRendu[boucle], ((float)(valPiece[boucle])/100.0));
-            	}
+                // afficher la monnaie à rendre
+		afficherMonnaieRendue(pieceRendu, valPiece);
             	// ajouter les pièces du client dans la caisse
             	ajouterPiece(nbPiece, pieceUser);
 		}
 	    else
 		printf("Désolé je n'ai pas assez de monnaie en caisse\n");
             break;
+
         case 2:
-		afficherCaisse( nbPiece, valPiece);
-                break;
+	    afficherCaisse( nbPiece, valPiece);
+            break;
         case 3:
             printf("Au revoir\n");
             break;

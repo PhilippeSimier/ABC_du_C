@@ -22,10 +22,10 @@ int main()
 
     do{
         system("clear");
-        printf("Que voulez-vous faire ?\n");
+        printf("Que voulez-vous faire ?\n\n");
         printf("1 -> Commander une boisson\n");
         printf("2 -> Afficher le contenu de la caisse\n");
-        printf("3 -> Quitter\n");
+        printf("3 -> Quitter\n\n");
         printf("Votre choix : ");
         scanf(" %c", &choix);
 
@@ -39,7 +39,10 @@ int main()
            possible = rendrePiece(valeurARendre, valPiece, nbPiece, pieceRendu);
 	   if (possible) {
                 // afficher la monnaie à rendre
-		afficherMonnaieRendue(pieceRendu, valPiece);
+		if (valeurARendre == 0)
+		    printf("Merci d'avoir fait l'appoint !\n\n");
+                else
+		    afficherMonnaieRendue(pieceRendu, valPiece);
             	// ajouter les pièces du client dans la caisse
             	ajouterPiece(nbPiece, pieceUser);
 		}

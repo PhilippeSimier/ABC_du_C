@@ -21,7 +21,7 @@ int demanderBoisson()
     do{
     	system("clear");
         erreur = 0;
-    	printf("Choisissez votre boisson :\n");
+    	printf("Choisissez votre boisson :\n\n");
     	printf("  1 -> Café long  [1.5€]\n");
     	printf("  2 -> Café cours [0.8€]\n\n");
     	printf("Votre choix : ");
@@ -98,7 +98,7 @@ int attendrePiece(int prixBoisson, int pieceUser[])
         if (erreur == 0)
             printf("La somme entrée est de %.1f€\n", ((float)(somme))/100.0 );
         else
- 	    printf("Pièce refusée\n");
+ 	    printf("Pièce refusée !!\n");
     }
     while(prixBoisson > somme);
     // retourne la somme à rendre
@@ -149,7 +149,7 @@ void ajouterPiece( int nbPiece[], int pieceUser[])
 void afficherMonnaieRendue(int pieceRendu[], int valPiece[])
 {
     int i;
-    printf("La monnaie à rendre :\n");
+    printf("Votre monnaie à rendre :\n");
     for(i = 0; i < 5; i++){
 
 	if (pieceRendu[i] != 0)

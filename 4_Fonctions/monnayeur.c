@@ -17,16 +17,15 @@ int main()
     char choix;
     int possible;
 
-    system("clear");
-    printf("Système Monnayeur Bonjour.\n\n");
 
     do{
         system("clear");
-        printf("Que voulez-vous faire ?\n\n");
-        printf("1 -> Commander une boisson\n");
-        printf("2 -> Afficher le contenu de la caisse\n");
-        printf("3 -> Quitter\n\n");
-        printf("Votre choix : ");
+	printf(" Système Monnayeur Bonjour.\n\n");
+        printf(" Que voulez-vous faire ?\n\n");
+        printf("  1 -> Commander une boisson\n");
+        printf("  2 -> Afficher le contenu de la caisse\n");
+        printf("  3 -> Quitter\n\n");
+        printf(" Votre choix : ");
         scanf(" %c", &choix);
 
         switch (choix){

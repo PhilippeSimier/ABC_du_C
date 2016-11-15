@@ -165,10 +165,11 @@ void afficherCaisse(int nbPiece[], int valPiece[])
     int i;
 
     system("clear");
-    printf("Le contenu de la caisse est :\n");
+    printf("Le contenu de la caisse est :\n\n");
     for(i = 0; i < 5; i++){
-	printf("  - Pieces de %.2f € : %d\n", ((float)valPiece[i])/100.0 , nbPiece[i]);
+	printf("\t%d\tPiece(s) de %.2f €\n", nbPiece[i], ((float)valPiece[i])/100.0 );
     }
+    printf("\n");
     continuer();
 }
 

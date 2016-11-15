@@ -1,27 +1,43 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+void continuer(){
+    printf(" Pour continuer appuyez sur touche\n");
+    getchar();  // retire le CR
+    getchar();  // attend une action sur le clavier
+    system("clear");  // efface l'écran
+}
+
+
 /* Fonction pour afficher la liste des boissons et de demander quelle boisson
  le client désire parmi les boissons disponibles.
  Retourne le prix de la boisson demandée. */
 int demanderBoisson()
 {
-    int choixBoisson;
+    char choixBoisson;
     int prixBoisson;
-    system("clear");
-    printf("Choisissez votre boisson :\n");
-    printf("1 -> Café long  [1.5€]\n");
-    printf("2 -> Café cours [0.8€]\n\n");
-    printf("Votre choix : ");
-    scanf("%d", &choixBoisson);
-    switch (choixBoisson){
-    case 1:
-        prixBoisson = 150;
-        break;
-    case 2:
-        prixBoisson = 80;
-        break;
+    char erreur;  // variable pour indiquer une erreur de saisie
+
+    do{
+    	system("clear");
+        erreur = 0;
+    	printf("Choisissez votre boisson :\n");
+    	printf("  1 -> Café long  [1.5€]\n");
+    	printf("  2 -> Café cours [0.8€]\n\n");
+    	printf("Votre choix : ");
+    	scanf(" %c", &choixBoisson);  // ne pas oublier le blanc devant %c pour vider le buffer
+    	switch (choixBoisson){
+    	    case '1':
+            	prixBoisson = 150;
+            	break;
+            case '2':
+            	prixBoisson = 80;
+            	break;
+            default:
+	    	erreur = 1;
+    	}
     }
+    while (erreur == 1);
     return prixBoisson;
 }
 
@@ -34,8 +50,9 @@ int demanderBoisson()
 
 int attendrePiece(int prixBoisson, int pieceUser[])
 {
-    int piece;
+    char piece;
     double somme = 0;
+    char erreur;  // Variable pour mémoriser une erreur 
     int i;
     // remise à zéro du nb de  pièces remise par le client
     for ( i = 0; i < 5; i++){
@@ -43,7 +60,7 @@ int attendrePiece(int prixBoisson, int pieceUser[])
     }
 
     printf("Le prix est de %.2f €\n", ((float)(prixBoisson)/100.0));
-    printf("Monnaie :\n");
+    printf("Pièces acceptées :\n");
     printf(" 5 -> 2 €\n");
     printf(" 4 -> 1 €\n");
     printf(" 3 -> 0.50 €\n");
@@ -51,31 +68,37 @@ int attendrePiece(int prixBoisson, int pieceUser[])
     printf(" 1 -> 0.10 €\n");
 
     do{
-        printf("Pièce à entrer :");
-        scanf("%d", &piece);
+        erreur = 0;
+        printf("Votre Pièce : ");
+        scanf(" %c", &piece);  // Attention  ne pas oublier le blanc devant %c
         switch (piece){
-        case 5:
+        case '5':
             somme = somme + 200;
             pieceUser[0]++;
             break;
-        case 4:
+        case '4':
             somme = somme + 100;
             pieceUser[1]++;
             break;
-        case 3:
+        case '3':
             somme = somme + 50;
             pieceUser[2]++;
             break;
-        case 2:
+        case '2':
             somme = somme + 20;
             pieceUser[3]++;
             break;
-        case 1:
+        case '1':
             somme = somme + 10;
             pieceUser[4]++;
             break;
+        default:
+	    erreur = 1;
         }
-        printf("La somme que vous avez entrée est de %.1f€\n", ((float)(somme))/100.0 );
+        if (erreur == 0)
+            printf("La somme entrée est de %.1f€\n", ((float)(somme))/100.0 );
+        else
+ 	    printf("Pièce refusée\n");
     }
     while(prixBoisson > somme);
     // retourne la somme à rendre
@@ -142,8 +165,11 @@ void afficherCaisse(int nbPiece[], int valPiece[])
     int i;
 
     system("clear");
+    printf("Le contenu de la caisse est :\n");
     for(i = 0; i < 5; i++){
 	printf("  - Pieces de %.2f € : %d\n", ((float)valPiece[i])/100.0 , nbPiece[i]);
     }
-
+    continuer();
 }
+
+

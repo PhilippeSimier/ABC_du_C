@@ -1,10 +1,10 @@
 /***********************************************************************
     TP3 Distributeur de boissons
-    Compilation : gcc monayeur.c biblio_monayeur.c -o monayeur -Wall
+    Compilation : gcc monnayeur.c biblio_monnayeur.c -o monnayeur -Wall
 ************************************************************************/
 #include <stdio.h>
 #include <stdlib.h>
-#include "biblio_monayeur.h"
+#include "biblio_monnayeur.h"
 
 int main()
 {   /* la valeur des pièces en centimes d'euros */
@@ -14,22 +14,24 @@ int main()
     int nbPiece[5]    = {1, 1, 0, 0, 2};
     int pieceUser[5]  = {0, 0, 0, 0, 0};
     int pieceRendu[5] = {0, 0, 0, 0, 0};
-    int choix;
+    char choix;
     int possible;
 
-    printf("Système monayeur Bonjour.\n");
+    system("clear");
+    printf("Système Monnayeur Bonjour.\n\n");
 
     do{
+        system("clear");
         printf("Que voulez-vous faire ?\n");
         printf("1 -> Commander une boisson\n");
         printf("2 -> Afficher le contenu de la caisse\n");
         printf("3 -> Quitter\n");
         printf("Votre choix : ");
-        scanf("%d", &choix);
+        scanf(" %c", &choix);
 
         switch (choix){
 
-        case 1:
+        case '1':
             prixBoisson = demanderBoisson();
             valeurARendre = attendrePiece(prixBoisson, pieceUser);
             printf("Somme à rendre : %.1f €\n", ((float)(valeurARendre)/100.0));
@@ -43,20 +45,20 @@ int main()
 		}
 	    else
 		printf("Désolé je n'ai pas assez de monnaie en caisse\n");
+                continuer();
             break;
 
-        case 2:
+        case '2':
 	    afficherCaisse( nbPiece, valPiece);
             break;
-        case 3:
+        case '3':
             printf("Au revoir\n");
             break;
         default:
-            printf("Saisie incorrecte\n");
             break;
         }
 
-    }while(choix != 3);
+    }while(choix != '3');
 
 
     return 0;

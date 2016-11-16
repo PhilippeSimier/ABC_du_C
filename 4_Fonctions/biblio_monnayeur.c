@@ -23,17 +23,21 @@ int demanderBoisson()
     	system("clear");
         erreur = 0;
     	printf("Choisissez votre boisson :\n\n");
-    	printf("  1 -> Café long  [1.5€]\n");
-    	printf("  2 -> Café cours [0.8€]\n\n");
+    	printf("  1 -> Café long  [1.00 €]\n");
+    	printf("  2 -> Café cours [0.80 €]\n");
+        printf("  3 -> Chocolat chaud [0.95 €]\n\n");
     	printf("Votre choix : ");
     	scanf(" %c", &choixBoisson);  // ne pas oublier le blanc devant %c pour vider le buffer
     	switch (choixBoisson){
     	    case '1':
-            	prixBoisson = 150;
+            	prixBoisson = 100;
             	break;
             case '2':
             	prixBoisson = 80;
             	break;
+            case '3':
+		prixBoisson = 95;
+		break;
             default:
 	    	erreur = 1;
     	}

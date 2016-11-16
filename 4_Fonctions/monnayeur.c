@@ -54,7 +54,7 @@ int main()
 	    afficherCaisse( nbPiece, valPiece);
             break;
         case '3':
-            printf("Au revoir\n");
+            printf(" Au revoir\n");
             break;
         default:
             break;

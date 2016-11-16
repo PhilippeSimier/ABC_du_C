@@ -30,7 +30,7 @@ int verifierLettrePropose(char *lettresProposees, int nbLettreProposee, char let
 
 }
 
-//retourne une valeur entiere E[0..maxAlea[
+//retourne une valeur entière E[0..maxAlea[
 unsigned int aleatoire( unsigned int maxAlea )
 {
     struct timeb t;
@@ -51,7 +51,7 @@ void initialiserMot(char *motCourant,int longueurMot)
     {
         motCourant[compteur]='-';
     }
-    motCourant[longueurMot]='\0';	// pour que le tableau de caracteres devienne une chaine de caracteres
+    motCourant[longueurMot]='\0'; // pour que le tableau de caractères devienne une chaine de caractères
 }
 
 void effacerEcran()
@@ -66,7 +66,7 @@ int afficherMenu()
     do
     {
         printf("Voulez-vous jouer ou quitter ? (j/q) : ");
-        scanf(" %c",&choix);
+        scanf(" %c",&choix);  // Ne pas oublier l'espace devant %c
         switch(choix)
         {
         case 'j' :
@@ -78,7 +78,7 @@ int afficherMenu()
             break;
 
         default :
-            printf("Je n'est pas bien compris votre choix\n");
+            printf("Je n'est pas bien compris votre choix !\n");
         }
     }while (resultat == 0);
     return resultat;
@@ -133,10 +133,10 @@ void afficherLettre(char *histo, int nbLettre)
     printf("\n");
 }
 
-int placerLettre(char *motATrouver,char *motCourant,char lettrePropose)
+int placerLettre(char *motATrouver, char *motCourant, char lettrePropose)
 {
-    int compteur=0,resultat=0,correct=0;
-    for(compteur=0;compteur<strlen(motATrouver);compteur++)
+    int compteur=0, resultat=0, correct=0;
+    for(compteur=0; compteur<strlen(motATrouver); compteur++)
     {
         if(lettrePropose == motATrouver[compteur])
         {

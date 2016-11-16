@@ -170,13 +170,16 @@ void afficherMonnaieRendue(int pieceRendu[], int valPiece[])
 void afficherCaisse(int nbPiece[], int valPiece[])
 {
     int i;
+    int somme = 0;
 
     system("clear");
     printf("Le contenu de la caisse est :\n\n");
     for(i = 0; i < NB; i++){
-	printf("\t%d\tPiece(s) de %.2f €\n", nbPiece[i], ((float)valPiece[i])/100.0 );
+	somme = somme + nbPiece[i] * valPiece[i];
+        printf("\t%d\tPiece(s) de %.2f €\n", nbPiece[i], ((float)valPiece[i])/100.0 );
     }
     printf("\n");
+    printf("Le total de la caisse est : %.2f €\n\n", ((float)somme)/100);
     continuer();
 }
 

@@ -20,7 +20,7 @@
 int afficherMenu();
 
 // affiche le pendu en fonction du nombre d'erreurs
-// passee en parametre
+// passée en paramètre
 void afficherPendu(int nroErreur);
 
 // Affiche les lettres déjà proposées
@@ -28,7 +28,7 @@ void afficherPendu(int nroErreur);
 // le nombre de lettres étant donné par nbLettre
 void afficherLettre(char *histo, int nbLettre);
 
-// retourne 0 et le mot est trouve
+// retourne 0 et le mot est trouvé
 int motEstTrouve(char *motATtrouver, char *motPropose);
 
 // remplace les - par la lettre proposé dans le tableau mot courant
@@ -36,7 +36,7 @@ int motEstTrouve(char *motATtrouver, char *motPropose);
 // retourne 1 si aucune lettre ne correspond, et 0 sinon
 int placerLettre(char *motATrouver,char *motCourant,char lettrePropose);
 
-// retourne 0 si la lettre a déja été proposé ou si ce n'est pas une lettre
+// retourne 0 si la lettre a déjà été proposé ou si ce n'est pas une lettre
 int verifierLettrePropose(char *lettresProposees, int nbLettreProposee, char lettre);
 
 // retourne un entier compris entre 0 et maxAlea

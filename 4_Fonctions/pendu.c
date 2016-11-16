@@ -1,8 +1,14 @@
+/******************************************************************************
+    TP 2 - Jeu de pendu
+           Corrigé
+    Compilation : gcc pendu.c biblio_Pendu.c -o pendu -Wall
+    Exécution   : ./pendu
+*******************************************************************************/
 #include "biblio_Pendu.h"
 
 int main(int argc, char *argv[])
 {
-	char *listeMots[NBMOTS]={"bonjour","maison","noyau","temps","blond","clown","kayak"};
+	char *listeMots[NBMOTS]={"bonjour", "maison", "noyau", "temps", "blond", "clown", "kayak"};
 	int cptErreur=0;
 	char *motATrouver;
 	char *motCourant;
@@ -23,7 +29,7 @@ int main(int argc, char *argv[])
 			cptErreur=0;
 			cptProposition=0;
 
-			// tirage aleatooire du mot
+			// tirage aléatoire d'un mot
 			motATrouver=listeMots[aleatoire(NBMOTS-1)];
 
 			/* réservation de mémoire pour le motCourant */
@@ -36,30 +42,30 @@ int main(int argc, char *argv[])
 				printf("\n  %s\n\n",motCourant);
 				afficherLettre(histo,cptProposition);
 
-				/* demander/redemander une lettre tant que
-				// le caractere saisi n'est pas une lettre
-				// ou a deja ete propose */
+				/* demander/redémander une lettre tant que
+				// le caractère saisi n'est pas une lettre
+				// ou a déja été proposé */
 				do{
 					printf("donnez une lettre : ");
 					scanf(" %c",&lettre);
 					effacerEcran();
 				}while(verifierLettrePropose(histo,cptProposition,lettre)==0);
 
-				// mise a jour du tableau des lettres proposees
+				// mise à jour du tableau des lettres proposées
 				histo[cptProposition]=lettre;
 				cptProposition++;
 
-				// mise a jour du compteur d'erreur
+				// mise à jour du compteur d'erreur
 				cptErreur+=placerLettre(motATrouver,motCourant,lettre);
 
 				afficherPendu(cptErreur);
 				trouve=motEstTrouve(motATrouver,motCourant);
 				if(cptErreur==7)
-                {
-                    perdu=0;
-                }
+                		   {
+                    			perdu=0;
+                		   }
 			}while(trouve!=0 && perdu != 0);
-			// liberation de la memoire du mot courant
+			// liberation de la mémoire du mot courant
 			free(motCourant);
 			// affichage des messages de fin de jeu
 			if (trouve==0)

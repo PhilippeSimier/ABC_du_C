@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "biblio_monnayeur.h"
 
 void continuer(){
     printf(" Pour continuer appuyez sur touche\n");
@@ -55,7 +56,7 @@ int attendrePiece(int prixBoisson, int pieceUser[])
     char erreur;  // Variable pour mémoriser une erreur 
     int i;
     // remise à zéro du nb de  pièces remise par le client
-    for ( i = 0; i < 5; i++){
+    for ( i = 0; i < NB; i++){
  	pieceUser[i]= 0;
     }
 
@@ -66,6 +67,7 @@ int attendrePiece(int prixBoisson, int pieceUser[])
     printf(" 3 -> 0.50 €\n");
     printf(" 2 -> 0.20 €\n");
     printf(" 1 -> 0.10 €\n");
+    printf(" 0 -> 0.05 €\n");
 
     do{
         erreur = 0;
@@ -92,11 +94,16 @@ int attendrePiece(int prixBoisson, int pieceUser[])
             somme = somme + 10;
             pieceUser[4]++;
             break;
+        case '0':
+            somme = somme + 5;
+            pieceUser[5]++;
+            break;
+
         default:
 	    erreur = 1;
         }
         if (erreur == 0)
-            printf("La somme entrée est de %.1f€\n", ((float)(somme))/100.0 );
+            printf("La somme entrée est de %.2f€\n", ((float)(somme))/100.0 );
         else
  	    printf("Pièce refusée !!\n");
     }
@@ -112,11 +119,11 @@ int rendrePiece(int rendrePrix, int valPiece[], int nbPiece[], int pieceRendu[])
 {
     int i;
     // remise à zéro du tableau des pièces à rendre.
-    for(i = 0; i < 5; i++){
+    for(i = 0; i < NB; i++){
 	pieceRendu[i] = 0;
     }
     // mise à jours des piéces à rendre, on commence par les plus grandes
-    for(i = 0; i < 5; i++){
+    for(i = 0; i < NB; i++){
         // je peux rendre des pieces de la valeur courante
         if(valPiece[i] <= rendrePrix){
             // tant que je peux rendre des pieces de la valeur courante, je le fais
@@ -130,7 +137,7 @@ int rendrePiece(int rendrePrix, int valPiece[], int nbPiece[], int pieceRendu[])
     if (rendrePrix == 0)
 	return 1;
     else // pas assez de pièces en caisse pour rendre la monnaie
-	for(i=0; i < 5; i++){  // je les remet dans la caisse
+	for(i=0; i < NB; i++){  // je les remet dans la caisse
 	    nbPiece[i] = nbPiece[i] + pieceRendu[i];
 	}
         return 0;
@@ -140,7 +147,7 @@ int rendrePiece(int rendrePrix, int valPiece[], int nbPiece[], int pieceRendu[])
 void ajouterPiece( int nbPiece[], int pieceUser[])
 {
     int i;
-    for(i = 0; i < 5; i++){
+    for(i = 0; i < NB; i++){
          nbPiece[i] = nbPiece[i] + pieceUser[i];
     }
 }
@@ -150,10 +157,10 @@ void afficherMonnaieRendue(int pieceRendu[], int valPiece[])
 {
     int i;
     printf("Votre monnaie à rendre :\n");
-    for(i = 0; i < 5; i++){
+    for(i = 0; i < NB; i++){
 
 	if (pieceRendu[i] != 0)
-           printf("%d pièce(s) de %.1f€\n",  pieceRendu[i], ((float)(valPiece[i])/100.0));
+           printf("%d pièce(s) de %.2f€\n",  pieceRendu[i], ((float)(valPiece[i])/100.0));
     }
 }
 
@@ -166,7 +173,7 @@ void afficherCaisse(int nbPiece[], int valPiece[])
 
     system("clear");
     printf("Le contenu de la caisse est :\n\n");
-    for(i = 0; i < 5; i++){
+    for(i = 0; i < NB; i++){
 	printf("\t%d\tPiece(s) de %.2f €\n", nbPiece[i], ((float)valPiece[i])/100.0 );
     }
     printf("\n");

@@ -1,5 +1,6 @@
 #ifndef BIBLIOTHEQUE_PERSO_H_INCLUDED
 #define BIBLIOTHEQUE_PERSO_H_INCLUDED
+#define NB 6
 
 void continuer();
 int demanderBoisson();

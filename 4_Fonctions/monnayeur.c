@@ -8,12 +8,12 @@
 
 int main()
 {   /* la valeur des pièces en centimes d'euros */
-    int valPiece[5] = {200, 100, 50, 20, 10};
+    int valPiece[NB] = {200, 100, 50, 20, 10, 5};
     int prixBoisson;
     int valeurARendre;
-    int nbPiece[5]    = {1, 1, 0, 0, 2};
-    int pieceUser[5]  = {0, 0, 0, 0, 0};
-    int pieceRendu[5] = {0, 0, 0, 0, 0};
+    int nbPiece[NB]    = {1, 1, 0, 0, 2, 5};
+    int pieceUser[NB]  = {0, 0, 0, 0, 0, 0};
+    int pieceRendu[NB] = {0, 0, 0, 0, 0, 0};
     char choix;
     int possible;
 

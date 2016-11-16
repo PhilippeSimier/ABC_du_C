@@ -25,12 +25,9 @@ void corpulence(float imc){
 
 float devine(char sexe, float taille){
 
-    float poidsIdeal;
-
     if(sexe == 'h')
-    	poidsIdeal = 50 + 2.3 * (taille / 0.0254 - 60);
+    	return (50 + 2.3 * (taille / 0.0254 - 60));
     else
-        poidsIdeal = 45.5 + 2.3 * (taille / 0.0254 - 60);
-    return poidsIdeal;
+        return (45.5 + 2.3 * (taille / 0.0254 - 60));
 }
 

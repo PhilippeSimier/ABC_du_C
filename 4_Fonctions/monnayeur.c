@@ -20,9 +20,9 @@ int main()
 
     do{
         system("clear");
-	printf(" Système Monnayeur Bonjour.\n\n");
+	printf(" Système Distributeur Bonjour.\n\n");
         printf(" Que voulez-vous faire ?\n\n");
-        printf("  1 -> Commander une boisson\n");
+        printf("  1 -> Commander une boisson ou snack\n");
         printf("  2 -> Afficher le contenu de la caisse\n");
         printf("  3 -> Quitter\n\n");
         printf(" Votre choix : ");

@@ -3,47 +3,42 @@
 #include "biblio_monnayeur.h"
 
 void continuer(){
-    printf(" Pour continuer appuyez sur touche\n");
+    printf(" Pour continuer appuyez sur une touche\n");
     getchar();  // retire le CR
     getchar();  // attend une action sur le clavier
     system("clear");  // efface l'écran
 }
+// fonction pour convertir les centimes  en €
+float conv(int centime){
+    return ((float)(centime/100.0));
+}
 
-
-/* Fonction pour afficher la liste des boissons et de demander quelle boisson
+/* Fonction pour afficher la liste des boissons et demander quelle boisson
  le client désire parmi les boissons disponibles.
- Retourne le prix de la boisson demandée. */
+ Retourne le prix de la boisson demandée en centime d'Euros. */
 int demanderBoisson()
-{
-    char choixBoisson;
-    int prixBoisson;
-    char erreur;  // variable pour indiquer une erreur de saisie
+{   // le tableau des désignations
+    char *designation[NBP]={"Evian", "Coca cola", "Oasis Tropical", "Ice Tea Pêche", "Orangina", "Red Bull",
+                          "Schweppes Agrum", "Kinder Bueno", "Lay'S Sel", "Happy Life", "Duo Twix"};
+    // Le tableau des prix correspondants
+    int  prix[NBP]   	={ 180, 200, 200, 200, 150 ,250 ,
+                           200, 180, 100, 200, 150 };
+    int choixBoisson;
+    int  i;
 
     do{
     	system("clear");
-        erreur = 0;
-    	printf("Choisissez votre boisson :\n\n");
-    	printf("  1 -> Café long  [1.00 €]\n");
-    	printf("  2 -> Café cours [0.80 €]\n");
-        printf("  3 -> Chocolat chaud [0.95 €]\n\n");
-    	printf("Votre choix : ");
-    	scanf(" %c", &choixBoisson);  // ne pas oublier le blanc devant %c pour vider le buffer
-    	switch (choixBoisson){
-    	    case '1':
-            	prixBoisson = 100;
-            	break;
-            case '2':
-            	prixBoisson = 80;
-            	break;
-            case '3':
-		prixBoisson = 95;
-		break;
-            default:
-	    	erreur = 1;
+    	printf("Boissons ou snacks:\n\n");
+        for (i = 0; i<11 ; i++){
+    		printf("  %2d -> %15s\t[%.2f €]\n", i, designation[i], conv(prix[i]) );
     	}
+        printf("\nVotre choix : ");
+    	scanf(" %d", &choixBoisson);  // Attention à ne pas oublier le blanc devant %d pour vider le buffer
+	i = choixBoisson; //- '0';
     }
-    while (erreur == 1);
-    return prixBoisson;
+    while (i<0 || i> (NBP-1));  // Attention pour un tableau de taille 10 les indices vont de 0 à 9
+    printf("Vous avez choisi : %s le prix est %.2f €\n\n", designation[i], conv(prix[i]) );
+    return prix[i];  // retourne le prix en centime d'euros
 }
 
 /* Fonction chargée d'attendre que le client place dans le monnayeur
@@ -64,7 +59,6 @@ int attendrePiece(int prixBoisson, int pieceUser[])
  	pieceUser[i]= 0;
     }
 
-    printf("Le prix est de %.2f €\n", ((float)(prixBoisson)/100.0));
     printf("Pièces acceptées :\n");
     printf(" 5 -> 2 €\n");
     printf(" 4 -> 1 €\n");
@@ -107,7 +101,7 @@ int attendrePiece(int prixBoisson, int pieceUser[])
 	    erreur = 1;
         }
         if (erreur == 0)
-            printf("La somme entrée est de %.2f€\n", ((float)(somme))/100.0 );
+            printf("La somme entrée est de %.2f€\n", conv(somme) );
         else
  	    printf("Pièce refusée !!\n");
     }
@@ -164,7 +158,7 @@ void afficherMonnaieRendue(int pieceRendu[], int valPiece[])
     for(i = 0; i < NB; i++){
 
 	if (pieceRendu[i] != 0)
-           printf("%d pièce(s) de %.2f€\n",  pieceRendu[i], ((float)(valPiece[i])/100.0));
+           printf("%d pièce(s) de %.2f€\n",  pieceRendu[i], conv(valPiece[i]) );
     }
 }
 
@@ -180,10 +174,10 @@ void afficherCaisse(int nbPiece[], int valPiece[])
     printf("Le contenu de la caisse est :\n\n");
     for(i = 0; i < NB; i++){
 	somme = somme + nbPiece[i] * valPiece[i];
-        printf("\t%d\tPiece(s) de %.2f €\n", nbPiece[i], ((float)valPiece[i])/100.0 );
+        printf("\t%d\tPiece(s) de %.2f €\n", nbPiece[i], conv(valPiece[i]) );
     }
     printf("\n");
-    printf("Le total de la caisse est : %.2f €\n\n", ((float)somme)/100);
+    printf("Le total de la caisse est : %.2f €\n\n", conv(somme) );
     continuer();
 }
 

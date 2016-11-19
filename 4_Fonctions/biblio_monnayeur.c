@@ -83,6 +83,7 @@ int attendrePiece(int prixBoisson, int pieceUser[])
         }
     }
     while(prixBoisson > somme);
+    printf("Somme à rendre : %.1f €\n", conv(somme - prixBoisson));
     // retourne la somme à rendre
     return somme - prixBoisson;
 }

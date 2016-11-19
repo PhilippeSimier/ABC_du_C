@@ -29,24 +29,25 @@ int main()
         switch (choix){
 
         case '1':
-            prixBoisson = demanderBoisson();
-            valeurARendre = attendrePiece(prixBoisson, pieceUser);
-            printf("Somme à rendre : %.1f €\n", ((float)(valeurARendre)/100.0));
-
-           possible = rendrePiece(valeurARendre, pieceCaisse, pieceRendu);
-	   if (possible) {
-                // afficher la monnaie à rendre
-		if (valeurARendre == 0)
-		    printf("Merci d'avoir fait l'appoint !\n\n");
-                else
-		    afficherMonnaieRendue(pieceRendu);
-            	// ajouter les pièces du client dans la caisse
-            	ajouterPiece( pieceCaisse, pieceUser);
+           prixBoisson = demanderBoisson();
+           valeurARendre = attendrePiece(prixBoisson, pieceUser);
+ 	   if (valeurARendre == 0){
+		printf("Merci d'avoir fait l'appoint !\n\n");
+		ajouterPiece( pieceCaisse, pieceUser);
+		printf("Distribution en cours\n");
+           }
+           else{
+		possible = rendrePiece(valeurARendre, pieceCaisse, pieceRendu);
+                if (possible){
+                    afficherMonnaieRendue(pieceRendu);
+                    ajouterPiece( pieceCaisse, pieceUser);
+		    printf("Distribution en cours\n");
 		}
-	    else
+	    	else
 		printf("Désolé je n'ai pas assez de monnaie en caisse\n");
-                continuer();
-            break;
+           }
+           continuer();
+           break;
 
         case '2':
 	    afficherCaisse( pieceCaisse );

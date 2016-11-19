@@ -4,7 +4,7 @@
 
 /* la valeur des pièces en centimes d'euros,
    C'est une variable globale              */
-int valPiece[NB] = VALPIECE;
+const int valPiece[NB] = VALPIECE;
 
 void continuer(){
     printf(" Pour continuer appuyez sur une touche\n");
@@ -25,20 +25,20 @@ int demanderBoisson()
     char *designation[NBP] = DESIGNATION_PRODUITS;
     // Le tableau des prix correspondants
     int  prix[NBP] = PRIX_PRODUITS;
-    int choixBoisson;
-    int  i;
-
+    char choix;
+    int i;
     do{
     	system("clear");
+        choix = -1;  // -1 correspond à aucune boisson de sélectionnée
     	printf("Boissons ou Snacks:\n\n");
         for (i = 0; i<11 ; i++){
-    		printf("  %2d -> %15s\t[%.2f €]\n", i, designation[i], conv(prix[i]) ); // Affichage des produits ditribués
+    		printf("  %c -> %15s\t[%.2f €]\n", 'A'+i, designation[i], conv(prix[i]) ); // Affichage des produits ditribués
     	}
         printf("\nVotre choix : ");
-    	scanf(" %d", &choixBoisson);  // Attention à ne pas oublier le blanc devant %d pour vider le buffer
-	i = choixBoisson; //- '0';
+    	scanf(" %c", &choix);  // attention de ne pas oublier le blanc devant %c
+        i = (int)(choix - 'A');
     }
-    while (i<0 || i> (NBP-1));  // Attention pour un tableau de taille 10 les indices vont de 0 à 9
+    while (i <0 || i > (NBP-1));  // Attention pour un tableau de taille 10 les indices vont de 0 à 9
     system("clear");
     printf("Vous avez choisi : %s le prix est %.2f €\n\n", designation[i], conv(prix[i]) );
     return prix[i];  // retourne le prix en centime d'euros
@@ -54,6 +54,7 @@ int demanderBoisson()
 int attendrePiece(int prixBoisson, int pieceUser[])
 {
     int piece;
+    char choix;
     double somme = 0;
     int i;
 
@@ -64,12 +65,14 @@ int attendrePiece(int prixBoisson, int pieceUser[])
     // Affichage du tableau des valeurs piéces acceptées (tableau globale)
     printf("Pièces ou billets acceptés :\n");
     for (i=NB-1 ; i >= 0; i--){   // attention les indices du tableau vont de 0 à NB-1
-       printf(" %d -> %.2f  €\n", i, conv(valPiece[i]) );
+       printf(" %c -> %.2f  €\n", i+'A' , conv(valPiece[i]) );
     }
 
     do{
         printf("Votre Pièce ou billet : ");
-        scanf(" %d", &piece);  // Attention  ne pas oublier le blanc devant %d
+        piece = -1; // correspond à l'absence de piece
+        scanf(" %c", &choix);
+        piece = choix - 'A';
         if (piece < NB && piece >=0){
            somme += valPiece[piece];
            pieceUser[piece]++;  // actualisation du tableau des piéces remises

@@ -2,6 +2,10 @@
 #include <stdlib.h>
 #include "biblio_monnayeur.h"
 
+/* la valeur des pièces en centimes d'euros,
+   C'est une variable globale              */
+int valPiece[NB] = VALPIECE;
+
 void continuer(){
     printf(" Pour continuer appuyez sur une touche\n");
     getchar();  // retire le CR
@@ -18,25 +22,24 @@ float conv(int centime){
  Retourne le prix de la boisson demandée en centime d'Euros. */
 int demanderBoisson()
 {   // le tableau des désignations
-    char *designation[NBP]={"Evian", "Coca cola", "Oasis Tropical", "Ice Tea Pêche", "Orangina", "Red Bull",
-                          "Schweppes Agrum", "Kinder Bueno", "Lay'S Sel", "Happy Life", "Duo Twix"};
+    char *designation[NBP] = DESIGNATION_PRODUITS;
     // Le tableau des prix correspondants
-    int  prix[NBP]   	={ 180, 200, 200, 200, 150 ,250 ,
-                           200, 180, 100, 200, 150 };
+    int  prix[NBP] = PRIX_PRODUITS;
     int choixBoisson;
     int  i;
 
     do{
     	system("clear");
-    	printf("Boissons ou snacks:\n\n");
+    	printf("Boissons ou Snacks:\n\n");
         for (i = 0; i<11 ; i++){
-    		printf("  %2d -> %15s\t[%.2f €]\n", i, designation[i], conv(prix[i]) );
+    		printf("  %2d -> %15s\t[%.2f €]\n", i, designation[i], conv(prix[i]) ); // Affichage des produits ditribués
     	}
         printf("\nVotre choix : ");
     	scanf(" %d", &choixBoisson);  // Attention à ne pas oublier le blanc devant %d pour vider le buffer
 	i = choixBoisson; //- '0';
     }
     while (i<0 || i> (NBP-1));  // Attention pour un tableau de taille 10 les indices vont de 0 à 9
+    system("clear");
     printf("Vous avez choisi : %s le prix est %.2f €\n\n", designation[i], conv(prix[i]) );
     return prix[i];  // retourne le prix en centime d'euros
 }
@@ -50,60 +53,31 @@ int demanderBoisson()
 
 int attendrePiece(int prixBoisson, int pieceUser[])
 {
-    char piece;
+    int piece;
     double somme = 0;
-    char erreur;  // Variable pour mémoriser une erreur 
     int i;
+
     // remise à zéro du nb de  pièces remise par le client
     for ( i = 0; i < NB; i++){
  	pieceUser[i]= 0;
     }
-
-    printf("Pièces acceptées :\n");
-    printf(" 5 -> 2 €\n");
-    printf(" 4 -> 1 €\n");
-    printf(" 3 -> 0.50 €\n");
-    printf(" 2 -> 0.20 €\n");
-    printf(" 1 -> 0.10 €\n");
-    printf(" 0 -> 0.05 €\n");
+    // Affichage du tableau des valeurs piéces acceptées (tableau globale)
+    printf("Pièces ou billets acceptés :\n");
+    for (i=NB-1 ; i >= 0; i--){   // attention les indices du tableau vont de 0 à NB-1
+       printf(" %d -> %.2f  €\n", i, conv(valPiece[i]) );
+    }
 
     do{
-        erreur = 0;
-        printf("Votre Pièce : ");
-        scanf(" %c", &piece);  // Attention  ne pas oublier le blanc devant %c
-        switch (piece){
-        case '5':
-            somme = somme + 200;
-            pieceUser[0]++;
-            break;
-        case '4':
-            somme = somme + 100;
-            pieceUser[1]++;
-            break;
-        case '3':
-            somme = somme + 50;
-            pieceUser[2]++;
-            break;
-        case '2':
-            somme = somme + 20;
-            pieceUser[3]++;
-            break;
-        case '1':
-            somme = somme + 10;
-            pieceUser[4]++;
-            break;
-        case '0':
-            somme = somme + 5;
-            pieceUser[5]++;
-            break;
-
-        default:
-	    erreur = 1;
+        printf("Votre Pièce ou billet : ");
+        scanf(" %d", &piece);  // Attention  ne pas oublier le blanc devant %d
+        if (piece < NB && piece >=0){
+           somme += valPiece[piece];
+           pieceUser[piece]++;  // actualisation du tableau des piéces remises
+	   printf("La somme entrée est de %.2f €\n", conv(somme) );
         }
-        if (erreur == 0)
-            printf("La somme entrée est de %.2f€\n", conv(somme) );
-        else
- 	    printf("Pièce refusée !!\n");
+        else{
+ 	    printf("Pièce ou billet refusé !!\n");
+        }
     }
     while(prixBoisson > somme);
     // retourne la somme à rendre
@@ -113,7 +87,7 @@ int attendrePiece(int prixBoisson, int pieceUser[])
 /* Fonction pour rendre la monnaie
    Renvoie 1 si possible ou 0 si pas assez de monnaie disponible 
    dans la caisse du monayeur*/
-int rendrePiece(int rendrePrix, int valPiece[], int nbPiece[], int pieceRendu[])
+int rendrePiece(int rendrePrix, int pieceCaisse[], int pieceRendu[])
 {
     int i;
     // remise à zéro du tableau des pièces à rendre.
@@ -125,10 +99,10 @@ int rendrePiece(int rendrePrix, int valPiece[], int nbPiece[], int pieceRendu[])
         // je peux rendre des pieces de la valeur courante
         if(valPiece[i] <= rendrePrix){
             // tant que je peux rendre des pieces de la valeur courante, je le fais
-            while((rendrePrix >= valPiece[i]) && (nbPiece[i] != 0)){
+            while((rendrePrix >= valPiece[i]) && (pieceCaisse[i] != 0)){
                 rendrePrix = rendrePrix - valPiece[i];
                 pieceRendu[i]++;
-                nbPiece[i]--;
+                pieceCaisse[i]--;
             }
         }
     }
@@ -136,22 +110,22 @@ int rendrePiece(int rendrePrix, int valPiece[], int nbPiece[], int pieceRendu[])
 	return 1;
     else // pas assez de pièces en caisse pour rendre la monnaie
 	for(i=0; i < NB; i++){  // je les remet dans la caisse
-	    nbPiece[i] = nbPiece[i] + pieceRendu[i];
+	    pieceCaisse[i] = pieceCaisse[i] + pieceRendu[i];
 	}
         return 0;
 }
 
 // Ajoute les pièces du client dans la caisse du monayeur
-void ajouterPiece( int nbPiece[], int pieceUser[])
+void ajouterPiece( int pieceCaisse[], int pieceUser[])
 {
     int i;
     for(i = 0; i < NB; i++){
-         nbPiece[i] = nbPiece[i] + pieceUser[i];
+         pieceCaisse[i] = pieceCaisse[i] + pieceUser[i];
     }
 }
 
 // Fonction pour afficher la monnaie à rendre
-void afficherMonnaieRendue(int pieceRendu[], int valPiece[])
+void afficherMonnaieRendue(int pieceRendu[])
 {
     int i;
     printf("Votre monnaie à rendre :\n");
@@ -165,7 +139,7 @@ void afficherMonnaieRendue(int pieceRendu[], int valPiece[])
 // Fonction pour afficher le contenu de la caisse
 // juste pour vérifier que des petits malins ne viennent pas piquer
 // dans la caisse !!!
-void afficherCaisse(int nbPiece[], int valPiece[])
+void afficherCaisse(int pieceCaisse[])
 {
     int i;
     int somme = 0;
@@ -173,8 +147,11 @@ void afficherCaisse(int nbPiece[], int valPiece[])
     system("clear");
     printf("Le contenu de la caisse est :\n\n");
     for(i = 0; i < NB; i++){
-	somme = somme + nbPiece[i] * valPiece[i];
-        printf("\t%d\tPiece(s) de %.2f €\n", nbPiece[i], conv(valPiece[i]) );
+	somme = somme + pieceCaisse[i] * valPiece[i];
+        if(valPiece[i]>200)
+	    printf("\t%d\tBillet(s) de %.2f €\n", pieceCaisse[i], conv(valPiece[i]) );
+        else
+            printf("\t%d\tPiece(s)  de %.2f €\n", pieceCaisse[i], conv(valPiece[i]) );
     }
     printf("\n");
     printf("Le total de la caisse est : %.2f €\n\n", conv(somme) );

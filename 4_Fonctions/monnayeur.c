@@ -7,16 +7,14 @@
 #include "biblio_monnayeur.h"
 
 int main()
-{   /* la valeur des pièces en centimes d'euros */
-    int valPiece[NB] = {200, 100, 50, 20, 10, 5};
+{
     int prixBoisson;
     int valeurARendre;
-    int nbPiece[NB]    = {1, 1, 0, 0, 2, 5};
-    int pieceUser[NB]  = {0, 0, 0, 0, 0, 0};
-    int pieceRendu[NB] = {0, 0, 0, 0, 0, 0};
+    int pieceCaisse[NB] = FOND_DE_CAISSE;
+    int pieceUser[NB];
+    int pieceRendu[NB];
     char choix;
     int possible;
-
 
     do{
         system("clear");
@@ -35,15 +33,15 @@ int main()
             valeurARendre = attendrePiece(prixBoisson, pieceUser);
             printf("Somme à rendre : %.1f €\n", ((float)(valeurARendre)/100.0));
 
-           possible = rendrePiece(valeurARendre, valPiece, nbPiece, pieceRendu);
+           possible = rendrePiece(valeurARendre, pieceCaisse, pieceRendu);
 	   if (possible) {
                 // afficher la monnaie à rendre
 		if (valeurARendre == 0)
 		    printf("Merci d'avoir fait l'appoint !\n\n");
                 else
-		    afficherMonnaieRendue(pieceRendu, valPiece);
+		    afficherMonnaieRendue(pieceRendu);
             	// ajouter les pièces du client dans la caisse
-            	ajouterPiece(nbPiece, pieceUser);
+            	ajouterPiece( pieceCaisse, pieceUser);
 		}
 	    else
 		printf("Désolé je n'ai pas assez de monnaie en caisse\n");
@@ -51,7 +49,7 @@ int main()
             break;
 
         case '2':
-	    afficherCaisse( nbPiece, valPiece);
+	    afficherCaisse( pieceCaisse );
             break;
         case '3':
             printf(" Au revoir\n");

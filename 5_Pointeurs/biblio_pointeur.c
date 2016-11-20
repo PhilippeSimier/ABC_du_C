@@ -33,24 +33,23 @@ char* moisNom(int idMois){
 
 char* supprimerE(char chaine[]){
 
-    int i,j;
-    int nb = 0;
+    int i,nb;
     char *sensE;
     char *s;
 
     // Boucle pour compter le nb de caractères différent de e dans la chaine
-    for(s=chaine ; *s; s++){
+    for(s=chaine, nb=0 ; *s; s++){
         if( *s != 'e')
             nb++;
     }
 
-    // Allocation de mémoire pour la nouvelle chaine
+    // Allocation de mémoire pour la nouvelle chaine (Attention nb+1)
     sensE = (char*)malloc( (nb+1) * sizeof(char));
 
-    for( i=0, j=0; i < strlen(chaine); i++){  // Attention deux indexs i et j sont initialisés
-        if(chaine[i] != 'e'){
-            sensE[j] = chaine[i];
-            j++;
+    for( s=chaine, i=0; *s; s++){  // Attention deux initialisations s et i sont initialisés
+        if(*s != 'e'){
+            sensE[i] = *s;
+            i++;
         }
     }
     // retourne la nouvelle chaine

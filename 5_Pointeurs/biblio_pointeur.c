@@ -24,3 +24,35 @@ char* moisNom(int idMois){
 
     return mois;
 }
+
+/* 6. Codez une fonction supprimerE qui prend en paramètre une
+      chaîne de caractères et retourne  un pointeur sur une chaîne
+      de caractères allouée dynamiquement et qui contient la chaîne
+      de caractères initiale sans les caractères 'e'.
+*/
+
+char* supprimerE(char chaine[]){
+
+    int i,j;
+    int nb = 0;
+    char *sensE;
+    char *s;
+
+    // Boucle pour compter le nb de caractères différent de e dans la chaine
+    for(s=chaine ; *s; s++){
+        if( *s != 'e')
+            nb++;
+    }
+
+    // Allocation de mémoire pour la nouvelle chaine
+    sensE = (char*)malloc( (nb+1) * sizeof(char));
+
+    for( i=0, j=0; i < strlen(chaine); i++){  // Attention deux indexs i et j sont initialisés
+        if(chaine[i] != 'e'){
+            sensE[j] = chaine[i];
+            j++;
+        }
+    }
+    // retourne la nouvelle chaine
+    return sensE;
+}

@@ -55,3 +55,34 @@ char* supprimerE(char chaine[]){
     // retourne la nouvelle chaine
     return sensE;
 }
+
+/* 7. Codez une fonction saisirChaine qui demande à l'utilisateur de saisir
+une chaine de caractères et retourne un pointeur vers une zone mémoire
+allouée dynamiquement et contenant la chaîne saisie.
+La fonction saisirChaine prendra en paramètres une chaine de caractères
+correspondant au message à afficher pour demander à l'utilisateur de saisir
+une chaine.  */
+
+char* saisirChaine(char *message){
+    char *nom;
+    char buffer[255];
+
+    printf("%s", message);
+    scanf("%s", buffer);
+
+    nom = (char*) malloc((strlen(buffer)+1)*sizeof(char));
+    strcpy(nom, buffer);
+
+    return nom;
+}
+
+/* 8. Codez une fonction swapFloat qui intervertit les valeurs de deux
+      variables de type float.  */
+
+void swapFloat(float *ptr1, float *ptr2){
+    float tmp;
+
+    tmp = *ptr1;
+    *ptr1 = *ptr2;
+    *ptr2 = tmp;
+}

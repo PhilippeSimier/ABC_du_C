@@ -3,7 +3,8 @@
 #include <string.h>
 #include <math.h>
 
-#define TAILLEMAX 50
+#define EPSILON 0.00001
+
 
 /* 5. Codez une fonction moisNom qui retourne un pointeur sur
     une chaîne de caractères allouée dynamiquement et qui contient
@@ -85,4 +86,31 @@ void swapFloat(float *ptr1, float *ptr2){
     tmp = *ptr1;
     *ptr1 = *ptr2;
     *ptr2 = tmp;
+}
+
+/* 9 résolution de l'équation du second degré
+	retourne le nb de racines dans R (0, 1 ou 2)
+*/
+int resoSecondDegre(float a, float b, float c, float *racine1, float *racine2){
+    float delta, rdelta;
+
+    delta = b*b - 4*a*c;
+
+    if(delta >= EPSILON){
+	 rdelta = sqrt(delta);
+         *racine1 = ((-b - rdelta) / (2*a));
+         *racine2 = ((-b + rdelta) / (2*a));
+	 return 2;
+    }
+    else{
+	if(delta >= -EPSILON){
+	    *racine1 = (-b / (2*a));
+            *racine2 = *racine1;
+	    return 1;
+	}
+        else
+	    //pas de racine dans R
+	    return 0;
+
+    }
 }

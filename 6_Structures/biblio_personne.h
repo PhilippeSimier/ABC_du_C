@@ -1,6 +1,6 @@
 #ifndef BIBLIO_H_INCLUDED
 #define BIBLIO_H_INCLUDED
-#define TAILLEMAX 25
+#define TAILLEMAX 13
 
 typedef struct{
     char nom[TAILLEMAX];

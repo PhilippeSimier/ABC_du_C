@@ -2,6 +2,16 @@
 #include <stdlib.h>
 #include "biblio_personne.h"
 
+// Fonction pour vider le buffer d'entrée
+// lit le buffer d'entrée tant que pas retour charriot et pas fin de fichier
+void vide(void){
+    int c;
+    do {
+        c = getchar();
+    } while (c != '\n'  && c != EOF);
+}
+
+
 // retourne un pointeur sur une personne
 typePersonne *creePersonnePtr(){
 
@@ -11,9 +21,11 @@ typePersonne *creePersonnePtr(){
     personne = (typePersonne*) malloc(sizeof(typePersonne));
 
     printf("Quel est votre prenom ? ");
-    scanf("%25s", personne->prenom);
+    scanf("%12s", personne->prenom);  // lecture de  12 caractères
+    vide(); //vide le buffer d'entrée des caractères entrée au delà des 12 lus par scanf
     printf("Quel est votre nom ? ");
-    scanf("%25s", personne->nom);
+    scanf("%12s", personne->nom); // lecture de 12 caractères
+    vide();  //vide le buffer d'entrée
     printf("Quel est votre année de naissance ? ");
     scanf("%u", &personne->annee);
     printf("Quel est votre taille en cm? ");

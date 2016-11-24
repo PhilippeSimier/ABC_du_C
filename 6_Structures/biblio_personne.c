@@ -3,7 +3,7 @@
 #include "biblio_personne.h"
 
 // Fonction pour vider le buffer d'entrée
-// lit le buffer d'entrée tant que pas retour charriot et pas fin de fichier
+// lit le buffer d'entrée jusqu'au  retour charriot ou fin de fichier
 void vide(void){
     int c;
     do {

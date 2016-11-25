@@ -9,7 +9,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#define LONG 20
+#define LONG 50
 
 int main()
 {

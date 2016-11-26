@@ -52,7 +52,7 @@ int main()
             printf("\nAu revoir.\n");
             break;
         default:
-            printf("\nChoix incorecte.\n");
+            printf("\nChoix incorrecte.\n");
             break;
         }
     }while(choix < 3);

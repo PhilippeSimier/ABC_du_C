@@ -2,7 +2,7 @@
 *  Complexe Sportif
 *
 *  Compilation :
-*  gcc -Wall complexeSportif.c biblio_complexeSportif.c -o complexSportif
+*  gcc -Wall complexeSportif.c biblio_complexeSportif.c -o complexeSportif
 ***************************************************************************/
 
 #include <stdio.h>
@@ -20,7 +20,7 @@ int main()
 
 
     do{
-
+	effacerEcran();
         afficherMenu(compteurAdherent);
         scanf(" %c", &choix);
         switch (choix){

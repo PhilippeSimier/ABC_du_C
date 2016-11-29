@@ -19,6 +19,24 @@ void continuer(){
     effacerEcran();
 }
 
+// Fonction pour vider le buffer d'entrée
+// lit le buffer d'entrée jusqu'au  retour charriot ou fin de fichier
+void vide(void){
+    int c;
+    do {
+        c = getchar();
+    } while (c != '\n'  && c != EOF);
+}
+
+// fonction pour transformer les minuscules en majuscules
+void majuscule(char *s)
+{
+    for(; *s; s++){
+    	if ( *s >= 'a' && *s <= 'z'){
+             *s = *s - 32;
+	}
+    }
+}
 
 void testerOuvertureFichier()
 {
@@ -36,6 +54,7 @@ void afficherMenu(int compteurAdherent)
     if(compteurAdherent == 0)
     {
         printf(" a -> Ajouter une fiche adhérent\n");
+	printf(" c -> Importer une liste d'adhérent\n");
         printf(" q -> Quitter\n\n");
     }
     else
@@ -47,6 +66,7 @@ void afficherMenu(int compteurAdherent)
         printf(" l -> Voir le contenu de l'ensemble des fiches\n");
         printf(" e -> Supprimer toutes les fiches\n");
         printf(" x -> Exporter adhérents\n");
+        printf(" c -> Importer une liste d'adhérents\n");
         printf(" q -> Quitter\n\n");
     }
     printf("Votre choix : ");
@@ -86,9 +106,12 @@ typeAdherent *creerUnAdherent()
 
     adherent = (typeAdherent*) malloc(sizeof(typeAdherent));
     printf("Nom : ");
-    scanf("%s", adherent->nom);
+    scanf("%15s", adherent->nom);
+    majuscule(adherent->nom);
+    vide(); //vide le buffer d'entrée des caractères résiduels
     printf("Prenom : ");
-    scanf("%s", adherent->prenom);
+    scanf("%15s", adherent->prenom);
+    vide(); //vide le buffer d'entrée des caractères résiduels
     printf("Date de naissance : ");
     printf("\n\tJour : ");
     scanf("%d", &adherent->dateDeNaissance.jour);
@@ -216,15 +239,14 @@ int supprimerUnAdherent(typeAdherent *tab[], int nro, int nb)
     {
         if(tab[i]->numCarte == nro)
         {
-            //free(tab[i]);
-
+            free(tab[i]);
             for(j = i; j < nb; j++)
             {
                 tab[j] = tab[j+1];
             }
+	    nb--;
         }
     }
-    nb--;
     return nb;
 }
 
@@ -371,8 +393,8 @@ int chargerAdherents(typeAdherent *tab[], int nb)
 	   	if(strcmp(activite, "SQUASH")==0)    adherent->activite[i] = SQUASH;
 	   	if(strcmp(activite, "TENNIS")==0)    adherent->activite[i] = TENNIS;
             }
-	    fgetc(pFich);
-	    fgetc(pFich);
+	   // fgetc(pFich);
+	   // fgetc(pFich);
             tab[nb] = adherent;
 	    nb++;
 	}

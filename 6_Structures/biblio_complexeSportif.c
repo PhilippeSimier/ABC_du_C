@@ -7,7 +7,9 @@
 void effacerEcran()
 {
     system("clear");
-    printf(" Base de données COMPLEXE SPORTIF\n\n");
+    printf("+------------------------------------+\n");
+    printf("|  Base de données COMPLEXE SPORTIF  |\n");
+    printf("+------------------------------------+\n\n");
 }
 
 void continuer(){
@@ -60,19 +62,19 @@ void afficherActivite(sport listSport)
     switch (listSport)
     {
     case NATATION:
-        printf("Natation\n");
+        printf("Natation ");
         break;
     case BASKETBALL:
-        printf("Basketball\n");
+        printf("Basketball ");
         break;
     case HANDBALL:
-        printf("Handball\n");
+        printf("Handball ");
         break;
     case SQUASH:
-        printf("Squash\n");
+        printf("Squash ");
         break;
     case TENNIS:
-        printf("Tennis\n");
+        printf("Tennis ");
         break;
     }
 }
@@ -138,14 +140,17 @@ void afficherUnAdherent(typeAdherent *adherent[], int numeroCarte, int nb)
     {
         if(numeroCarte == adherent[j]->numCarte)
         {
-            printf("\nNom : %s", adherent[j]->nom);
-            printf("\nPrénom : %s", adherent[j]->prenom);
-            printf("\nDate de naissance : %d/%d/%d", adherent[j]->dateDeNaissance.jour, adherent[j]->dateDeNaissance.mois, adherent[j]->dateDeNaissance.annee);
-            printf("\nNombre d'activité : %d\n", adherent[j]->nbActivite);
-            for(i = 0; i < adherent[j]->nbActivite; i++)
+            printf("+------------Fiche Adhérent-------------+\n");
+      	    printf("| Nom               : %15s\t|\n", adherent[j]->nom);
+            printf("| Prénom            : %15s\t|\n", adherent[j]->prenom);
+            printf("| Date de naissance : %d/%d/%d\t\t|\n", adherent[j]->dateDeNaissance.jour, adherent[j]->dateDeNaissance.mois, adherent[j]->dateDeNaissance.annee);
+            printf("| Nb d'activité(s)  : %d\t\t\t|\n", adherent[j]->nbActivite);
+            printf("| Activité          :");
+	    for(i = 0; i < adherent[j]->nbActivite; i++)
             {
                 afficherActivite(adherent[j]->activite[i]);
             }
+            printf("\n+---------------------------------------+\n");
         }
     }
 }

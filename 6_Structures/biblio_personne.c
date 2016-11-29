@@ -36,6 +36,7 @@ typePersonne *creePersonnePtr(){
     return personne;
 }
 
+
 void affichePersonnePtr(typePersonne *personne){
     printf("\n\n Fiche récapitulative \n\n");
     printf("Votre nom est %s %s\n", personne->nom, personne->prenom);

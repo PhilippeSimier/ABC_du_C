@@ -6,6 +6,7 @@
 *   Compilation : gcc -Wall tailleVariable.c -o tailleVariable
 **********************************************************************/
 #include <stdio.h>
+#include <limits.h>
 
 int main(){
     char c;

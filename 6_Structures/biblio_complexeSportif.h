@@ -7,8 +7,18 @@
 #define VERT   "\033[1;32m"
 #define RESET  "\033[1;0m"
 
+#define NOIR 0
+#define ROUGE 1
+//#define VERT 2
+#define JAUNE 3
+#define BLEU 4
+#define MAGENTA 5
+#define CYAN 6
+#define BLANC 7
+#define ESC x1B
+
 typedef enum{
-    NATATION,
+    NATATION = 1,
     BASKETBALL,
     HANDBALL,
     SQUASH,
@@ -30,32 +40,34 @@ typedef struct{
     int numCarte;
 }typeAdherent;
 
+void afficher_couleur(int, int, char *chaine);
+
 void effacerEcran();
 
 void continuer();
 
-void afficherMenu(int compteurAdherent);
+void afficherMenu(int);
 
-void afficherDate(date dateAfficher);
+void afficherDate(date);
 
-void afficherActivite(sport listSport);
+void afficherActivite(sport);
 
 typeAdherent *creerUnAdherent();
 
-void afficherUnAdherent(typeAdherent *adherent[], int numeroCarte, int nb);
+void afficherUnAdherent(typeAdherent *adherent[], int, int);
 
-void afficherAdherents(typeAdherent *tad[], int nb);
+void afficherAdherents(typeAdherent *tad[], int);
 
-int ajouterUnAdherent(typeAdherent *tab[], int nb);
+int ajouterUnAdherent(typeAdherent *tab[], int);
 
-int supprimerUnAdherent(typeAdherent *tab[], int nro, int nb);
+int supprimerUnAdherent(typeAdherent *tab[], int, int);
 
-int supprimerAdherents(typeAdherent *tab[], int nb);
+int supprimerAdherents(typeAdherent *tab[], int);
 
-void modifierFiche(typeAdherent *tab[], int nro, int nb);
+void modifierFiche(typeAdherent *tab[], int, int);
 
-int chargerAdherents(typeAdherent *ad[], int nb);
+int chargerAdherents(typeAdherent *ad[], int);
 
-void sauvegardeAdherents(typeAdherent *ad[], int nb);
+void sauvegardeAdherents(typeAdherent *ad[], int);
 
 #endif // BIBLIO_H_INCLUDED

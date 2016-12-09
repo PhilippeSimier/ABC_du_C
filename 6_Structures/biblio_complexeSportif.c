@@ -61,7 +61,7 @@ void afficherMenu(int compteurAdherent)
     if(compteurAdherent == 0)
     {
         printf(" a -> Ajouter une fiche adhérent\n");
-	printf(" c -> Importer une liste d'adhérent\n");
+	printf(" c -> Importer une liste d'adhérents\n");
         printf(" q -> Quitter\n\n");
     }
     else

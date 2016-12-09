@@ -1,13 +1,19 @@
-/*************************************************************
-   Programme demo pour le passage d'argument en ligne de
-   commande. Ici deux arguments seront nécessaires -p -r
-   les caratères sont suivits par deux points,
-   les options s'attendent donc  à avoir un argument,
-
-   Compilation : gcc getopt.c -o getopt -Wall
-   Test        : $./getopt -p 50000 -r /home/
-   ou          : $./getopt
-   ou	       : $./getopt -r /home/pi
+/************************************************************
+*   Programme demo pour le passage d'options en ligne de	
+*   commande. Ici deux options seront nécessaires -p -r		
+*   les caratères sont suivits par deux points,				
+*   les options s'attendent donc  à avoir un argument,		
+*
+*   Compilation : gcc -Wall getopt.c -o getopt 
+*
+*   
+*   test1        : $./getopt -p 50000 -r /home/
+*   test2        : $./getopt
+*   test3	    : $./getopt -r /home/pi
+*
+*   premier test avec deux options p et r
+*   deuxième test sans option
+*   troisième test avec une seul option r
 *************************************************************/
 #include<stdio.h>
 #include<stdlib.h>

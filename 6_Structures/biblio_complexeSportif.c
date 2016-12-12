@@ -7,9 +7,9 @@
 void effacerEcran()
 {
     system("clear");
-    afficher_couleur(NOIR,BLANC," +------------------------------------+ ");
-    afficher_couleur(NOIR,BLANC," |  Base de données COMPLEXE SPORTIF  | ");
-    afficher_couleur(NOIR,BLANC," +------------------------------------+ ");
+    afficher_couleur(MAGENTA,NOIR," +------------------------------------+ ");
+    afficher_couleur(MAGENTA,NOIR," |  Base de données COMPLEXE SPORTIF  | ");
+    afficher_couleur(MAGENTA,NOIR," +------------------------------------+ ");
     printf("\n");
 }
 
@@ -128,16 +128,18 @@ typeAdherent *creerUnAdherent()
     scanf("%d", &adherent->dateDeNaissance.annee);
     printf("Numéro d'adhérent : ");
     scanf("%d", &adherent->numCarte);
-    printf("Nombre d'activite :");
+    printf("Nombre d'activite : ");
     scanf("%d", &adherent->nbActivite);
+    printf(" Quel sport voulez-vous faire ?\n");
+    printf("  1 -> Natation\n");
+    printf("  2 -> Basket\n");
+    printf("  3 -> Hand\n");
+    printf("  4 -> Squash\n");
+    printf("  5 -> Tennis\n");
+
     for(i = 0; i < adherent->nbActivite; i++)
     {
-        printf(" Quel sport voulez-vous faire ?\n");
-        printf(" 1 -> Natation\n");
-        printf(" 2 -> Basket\n");
-        printf(" 3 -> Hand\n");
-        printf(" 4 -> Squash\n");
-        printf(" 5 -> Tennis\n");
+        printf(" Sport n° %d ?\n",i+1);
         printf(" Votre choix : ");
         scanf("%d", &numSport);
 
@@ -191,7 +193,7 @@ void afficherAdherents(typeAdherent *ad[], int nb)
 
     int i, j;
     afficher_couleur(BLANC,NOIR,"+-----+---------------+---------------+------------+-----------------------------------+");
-    afficher_couleur(MAGENTA,BLANC,"| Num |           Nom |       Prenom  | Naissance  | Activités                         |");
+    afficher_couleur(MAGENTA,NOIR,"| Num |           Nom |       Prenom  | Naissance  | Activités                         |");
     afficher_couleur(BLANC,NOIR,"+-----+---------------+---------------+------------+-----------------------------------+");
     for(j = 0; j < nb; j++)
     {

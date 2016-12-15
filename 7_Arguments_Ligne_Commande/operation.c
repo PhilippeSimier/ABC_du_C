@@ -28,7 +28,7 @@ int main(int argc, char *argv[]){
 	    case '-':
                 printf("%s %s %s = %.1f\n", argv[2], argv[1], argv[3], valeur1 - valeur2);
                 break;
-	    case '*':
+	    case 'x':
                 printf("%s %s %s = %.1f\n", argv[2], argv[1], argv[3], valeur1 * valeur2);
                 break;
 	    case '/':
@@ -41,5 +41,5 @@ int main(int argc, char *argv[]){
 
 void usage(char *nom){
 
-    printf("Usage : %s [+ - '*' /] nb1 nb2\n", nom);
+    printf("Usage : %s [+ - x /] nb1 nb2\n", nom);
 }

@@ -5,15 +5,21 @@
 * ligne et pas les espaces qui suivent. Ce comportement
 * consistant à lire quelque chose mais à ne pas le stocker est
 * du au *
-*
+*	 Compilation : gcc -Wall -std=c11 lireLigneTexte.c
+*	test avec redirection
+*       ./a.out < input > output
 ******************************************************************/
 #include <stdio.h>
 
 int main()
 {
-   char ligne[100];
-   scanf("%[^\n]%*c", ligne);
-   printf("'%s'\n", ligne);
-   scanf("%[^\n]%*c", ligne);
-   printf("'%s'\n", ligne);
+   int nb;
+   char ligne[1000];
+
+   scanf("%d%*c", &nb);
+   for (int i = 0; i < nb; i++){
+   	scanf("%[^\n]%*c", ligne);
+   	printf("'%s'\n", ligne);
+   }
+   return 0;
 }

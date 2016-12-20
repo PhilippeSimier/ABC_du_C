@@ -10,35 +10,44 @@
 ********************************************************/
 
 #include <stdio.h>
+#include <stdbool.h>  // pour avoir le type bool
 #include <stdlib.h>
 #define LONG 255
 
-char isVoyelle(char lettre){
-    if (lettre < 'a')
-	lettre += 32;
-    return (lettre == 'a' || lettre == 'e' || lettre == 'i' || lettre == 'o' || lettre == 'u');
+bool isVoyelle(char car)
+{
+   char voyelles[7] = "aeiouy";
+
+   if (car < 'a')
+        car += 32;
+
+   for (int i = 0; i < 7; i++){
+      if (car == voyelles[i])
+         return true;
+   }
+   return false;
 }
 
-char isConsonne(char lettre){
+bool isConsonne(char lettre){
     if (lettre < 'a')
 	lettre += 32;
     return  (lettre >= 'a' && lettre <= 'z' && !isVoyelle(lettre));
 }
 
-// fonction qui compte le nombre de caractères a dans une chaîne
-int occ(char *s, char charactere)
+// fonction pour compter le nombre de caractères  dans une chaîne s
+int occ(char s[], char caractere)
 {
     int occurence = 0;
     for (; *s; s++)
     {
-    	if (*s == charactere)
+    	if (*s == caractere)
 	    occurence++;
     }
     return occurence;
 }
 
-// fonction qui compte le nombre de voyelles
-int voyelle(char *s)
+// fonction pour compter le nombre de voyelles
+int voyelle(char s[])
 {
     int occurence = 0;
     for (; *s; s++)
@@ -51,7 +60,7 @@ int voyelle(char *s)
 
 // fonction qui compte le nombre de consonnes
 
-int consonne(char *s)
+int consonne(char s[])
 {
     int occurence = 0;
     for (; *s; s++)
@@ -62,7 +71,7 @@ int consonne(char *s)
     return occurence;
 }
 // fonction pour obtenir la longueur de la phrase
-int len(char *s)
+int len(char s[])
 {
     int longueur = -1;
     for (; *s; s++)
@@ -71,7 +80,7 @@ int len(char *s)
 }
 
 // fonction pour inverser l'ordre des lettres
-void inverse(char *s)
+void inverse(char s[])
 {
     int longueur = len(s);
     int i;
@@ -84,7 +93,7 @@ void inverse(char *s)
     }
 }
 // fonction pour transformer les majuscules en miniscules et vice versa
-void inverse_majuscule(char *s)
+void inverse_majuscule(char s[])
 {
     for(; *s; s++){
     	if ( *s >= 'a' && *s <= 'z'){
@@ -100,7 +109,8 @@ int main()
 
     char buffer[LONG];
     printf("Saisir une phrase \n");
-    fgets(buffer, sizeof(buffer), stdin);
+    //fgets(buffer, sizeof(buffer), stdin);
+    scanf("%[^\n]", buffer);
     printf("La phrase est :%s\n", buffer);
     printf("Le nombre de caractères a est : %d\n", occ(buffer, 'a'));
     printf("Le nombre de voyelles est : %d\n", voyelle(buffer));

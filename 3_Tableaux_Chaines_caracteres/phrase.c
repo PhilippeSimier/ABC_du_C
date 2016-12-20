@@ -5,13 +5,12 @@
 *  le nombre de voyelles			       *
 *  le nombre de consommes			       *
 *  le nombre de mots présents			       *
-*  UTILISEZ TOUJOURS fgets() A LA PLACE DE gets().     *
+*                                                      *
 *  gcc phrase.c -o phrase -std=c99 -Wall 	       *
 ********************************************************/
 
 #include <stdio.h>
 #include <stdbool.h>  // pour avoir le type bool
-#include <stdlib.h>
 #define LONG 255
 
 bool isVoyelle(char car)
@@ -109,13 +108,12 @@ int main()
 
     char buffer[LONG];
     printf("Saisir une phrase \n");
-    //fgets(buffer, sizeof(buffer), stdin);
     scanf("%[^\n]", buffer);
-    printf("La phrase est :%s\n", buffer);
-    printf("Le nombre de caractères a est : %d\n", occ(buffer, 'a'));
-    printf("Le nombre de voyelles est : %d\n", voyelle(buffer));
-    printf("Le nombre de consonnes est : %d\n", consonne(buffer));
-    printf("Le nombre de mots est : %d\n", occ(buffer,' ') + occ(buffer,'\t') + occ(buffer,'\'') + occ(buffer,'-') + 1);
+    printf("La phrase est : \"%s\"\n", buffer);
+    printf("Le nombre de caractères 'a' est : %d\n", occ(buffer, 'a'));
+    printf("Le nombre de voyelles est       : %d\n", voyelle(buffer));
+    printf("Le nombre de consonnes est      : %d\n", consonne(buffer));
+    printf("Le nombre de mots est           : %d\n", occ(buffer,' ') + occ(buffer,'\t') + occ(buffer,'\'') + occ(buffer,'-') + 1);
     inverse(buffer);
     printf("La phrase inversée est : %s\n", buffer);
     inverse(buffer);

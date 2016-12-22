@@ -1,48 +1,51 @@
 /***************************************************************************************
      Programmez une fonction qui prend une chaîne de caractères en argument
-     et renvoie 1 si c’est un palindrome (mot symétrique, qui s’écrit de la même
+     et renvoie true si c’est un palindrome (phrase symétrique, qui s’écrit de la même
      manière de gauche à droite et de droite à gauche).
 
      Compilation : gcc palindrome.c -o palindrome -Wall
 
      Exécution   : ./palindrome
-		   Saisir un mot : kayak
-		   Le mot kayak est un palindrome
-
+		   Saisir une phrase : kayak
+		   La phrase kayak est un palindrome
+     exemple	 : Engage le jeu que je le gagne !
+		 : Un roc si biscornu.
 ***************************************************************************************/
 
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
-#define LONG 26
+#include <ctype.h>
+#include <stdbool.h>
+#define LONG 1001
 
-/* renvoie 1 si s est un palindrome, 0 sinon */
-int palindrome(const char* s)  // const car la chaîne s n'est pas modifiée
+/* renvoie true si s est un palindrome, false sinon */
+bool palindrome(const char* s)  // const car la chaîne s n'est pas modifiée
 {
 
-    int n = strlen(s);
+    int j = strlen(s);
     int i = 0;
-    printf(" n = %d\n", n);
-    while ( i < n/2 ) {
-    	//ATTENTION: l’indice symétrique de i est n-1-i, pas n-i!
-	// car les indices vont de 0 à n-1 dans le tableau de caratères s
-    	if ( s[i] != s[n-1-i] ) return 0; // echec!
-    i++;
+    while ( i < j ) {
+        while (!isalpha(s[i]))
+	    { i++; }
+        while (!isalpha(s[j]))
+	    { j--; }
+        if ( toupper(s[i]) != toupper(s[j]) ) return false; // echec!
+    	i++;
+    	j--;
     }
-    return 1; // OK
+    return true; // OK
 }
 
 int main()
 {
-
     char buffer[LONG];
-    printf("Saisir un mot (sans lettres accentuées) : ");
-    scanf("%s",buffer);
+    printf("Saisir une phrase (sans lettres accentuées) : ");
+    scanf("%[^\n]",buffer);
 
     if(palindrome(buffer))
- 	printf("Le mot \033[92m%s\033[0m est un palindrome\n", buffer);
+ 	printf("La phrase \033[92m%s\033[0m est un palindrome\n", buffer);
     else
-	printf("Le mot \033[92m%s\033[0m n'est pas un palindrome\n", buffer);
+	printf("La phrase \033[92m%s\033[0m n'est pas un palindrome\n", buffer);
 
     return 0;
 }

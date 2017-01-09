@@ -19,17 +19,17 @@ int main()
 {
     FILE * fp;
     char retour;
-    int cptlower = 0;
-    int cptupper = 0;
+    int cptMaj = 0;
+    int cptMin = 0;
 
     fp = fopen("fichierTexte.txt","r");
     testErreur();
     while (!feof(fp)){   // tant que pas la fin de fichier
         retour = fgetc(fp);   // lecture d'un caractère
-        if (islower(retour)) cptlower++;   // si minuscule
-        if (isupper(retour)) cptupper++;   // si majuscule
+        if (islower(retour)) cptMaj++;   // si minuscule
+        if (isupper(retour)) cptMin++;   // si majuscule
     }
-    printf("Minuscules = %d\nMajuscules = %d \n", cptlower, cptupper);
+    printf("Minuscules = %d\nMajuscules = %d \n", cptMaj, cptMin);
     fclose(fp);
     return 0;
 }

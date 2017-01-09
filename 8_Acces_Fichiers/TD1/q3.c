@@ -30,5 +30,6 @@ int main()
         if (isupper(retour)) cptupper++;   // si majuscule
     }
     printf("Minuscules = %d\nMajuscules = %d \n", cptlower, cptupper);
+    fclose(fp);
     return 0;
 }

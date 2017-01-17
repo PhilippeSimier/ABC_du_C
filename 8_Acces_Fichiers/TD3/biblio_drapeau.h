@@ -7,6 +7,8 @@
 #include <errno.h>
 #pragma pack(1)
 
+#define NB_COULEURS 3
+
 typedef
     struct BMPImageEntete{
         unsigned int    taille_entete;
@@ -20,7 +22,7 @@ typedef
         int             vTesolution;
         unsigned int    nbCouleur;
         int             nbCouleurImportantes;
-  }BMPImageEnTete;
+  }BMP_IMAGE_HEAD;
 
 typedef
     struct BMPfichierHead{
@@ -28,13 +30,13 @@ typedef
         int             taille;
         int             reserve;
         int             offsetImage;
-        BMPImageEnTete imageHead;
-    }BMPfichierHead;
+        BMP_IMAGE_HEAD  imageHead;
+    }BMP_FICHIER_HEAD;
 
 typedef
     struct couleur{
         unsigned char bleu, vert, rouge, alpha;
-} couleur;
+} COULEUR;
 
 void testErreur();
 void creerImage(char *chemin, char *nomFichier, int largeur, int hauteur);

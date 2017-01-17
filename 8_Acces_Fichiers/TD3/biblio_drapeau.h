@@ -8,6 +8,7 @@
 #pragma pack(1)
 
 #define NB_COULEURS 3
+#define RESOLUTION  75
 
 typedef
     struct BMPImageEntete{
@@ -19,7 +20,7 @@ typedef
         int             compression;
         unsigned int    tailleImage;
         int             hResolution;
-        int             vTesolution;
+        int             vResolution;
         unsigned int    nbCouleur;
         int             nbCouleurImportantes;
   }BMP_IMAGE_HEAD;

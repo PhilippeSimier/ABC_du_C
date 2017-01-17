@@ -34,6 +34,7 @@ void afficheEnTeteFichierBmp(char *chemin, char *nomFichier){
             printf(" Offset image           : %d\n", entete->offsetImage);
 
         }
+    fclose(ptFichier);
     }
 }
 
@@ -97,7 +98,7 @@ void changePaletteBMP(char *chemin, char *FichierSource, char * FichierDest){
     char nomCompletSource[1024]={0};
     char nomCompletDest[1024]={0} ;
     char buffer[1024];
-    int i,result;
+    int i;
 
     printf("\nApplication du filtre Rouge\n");
     strcpy(nomCompletSource, chemin);
@@ -114,8 +115,14 @@ void changePaletteBMP(char *chemin, char *FichierSource, char * FichierDest){
 
     if (ptFDest != NULL && ptFSource != NULL){
         entete = (BMPfichierHead *) malloc(sizeof(BMPfichierHead ));
-        result = fread(entete, sizeof(BMPfichierHead), 1, ptFSource);
-        result = fwrite(entete, sizeof(BMPfichierHead), 1, ptFDest);
+        if (fread(entete, sizeof(BMPfichierHead), 1, ptFSource) != 1){
+	    printf("Erreur de lecture fichier source\n");
+            return;
+        }
+        if (fwrite(entete, sizeof(BMPfichierHead), 1, ptFDest) != 1){
+	    printf("Erreur d'écriture fichier destination\n");
+            return;
+	}
         if (fread(palette, sizeof(couleur), 256, ptFSource) != 256){
             printf("Erreur de lecture de la palette\n");
             return;

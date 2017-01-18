@@ -13,7 +13,8 @@ void creerImage(char *chemin, char *nomFichier, int largeur, int hauteur){
     BMP_FICHIER_HEAD entete;             // un entête de fichier
     COULEUR palette[NB_COULEURS];        // une palette de 3 couleurs
     char *image;
-    int i, j;
+    INDICE i;
+    int j;
 
     char nomComplet[1024]={0};
 
@@ -38,16 +39,19 @@ void creerImage(char *chemin, char *nomFichier, int largeur, int hauteur){
      entete.imageHead.taille_entete = sizeof(BMP_IMAGE_HEAD);
 
      // création de la palette
-     for (i = 0; i < NB_COULEURS; i++){
+     for (i = BLANC; i < NB_COULEURS; i++){
           palette[i].bleu = 255;
           palette[i].rouge = 255;  // blanc pour toute la palette
           palette[i].vert = 255;
           palette[i].alpha = 0;
      }
-     palette[0].rouge = 0;
-     palette[0].vert = 0;  // bleu pour couleur 0
-     palette[2].bleu = 0;
-     palette[2].vert = 0;  // rouge pour couleur 2
+     palette[BLEU].rouge = 0;
+     palette[BLEU].vert = 0;  // RVB pour le bleu
+     palette[ROUGE].bleu = 0;
+     palette[ROUGE].vert = 0;  // RVB pour le rouge
+     palette[NOIR].rouge = 0;
+     palette[NOIR].vert = 0;  // RVB pour le noir
+     palette[NOIR].bleu = 0;
 
      // création de l'image
      // Le codage de l'image se fait en écrivant successivement les bits
@@ -55,13 +59,13 @@ void creerImage(char *chemin, char *nomFichier, int largeur, int hauteur){
      image = (char *) malloc(sizeof(char) * largeur * hauteur);
      for (i = 0; i< (hauteur); i++){  // pour chacune des lignes
          for (j = 0; j< largeur/3; j++){  // 1/3 en bleu
-            image[i*largeur + j]= 0;
+            image[i*largeur + j]= BLEU;
          }
          for (j = largeur/3; j< 2*largeur/3; j++){  // deuxième 1/3 en blanc
-            image[i*largeur + j]= 1;
+            image[i*largeur + j]= BLANC;
          }
          for (j = 2*largeur/3; j< largeur; j++){  // troisième 1/3 en rouge
-            image[i*largeur + j]= 2;
+            image[i*largeur + j]= ROUGE;
          }
      }
 

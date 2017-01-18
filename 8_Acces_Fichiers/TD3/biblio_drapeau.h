@@ -7,8 +7,16 @@
 #include <errno.h>
 #pragma pack(1)
 
-#define NB_COULEURS 3
+#define NB_COULEURS 4
 #define RESOLUTION  75
+
+typedef
+    enum{
+    	BLANC,
+    	BLEU,
+    	ROUGE,
+	NOIR
+}INDICE;
 
 typedef
     struct BMPImageEntete{
@@ -35,7 +43,7 @@ typedef
     }BMP_FICHIER_HEAD;
 
 typedef
-    struct couleur{
+    struct pixel{
         unsigned char bleu, vert, rouge, alpha;
 } COULEUR;
 

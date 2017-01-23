@@ -26,10 +26,10 @@ void creerImage(char *chemin, char *nomFichier, int largeur, int hauteur){
 
      if ((largeur%4) != 0){
         largeur4 = (largeur/4)*4 + 4;
-        printf("ligne : %d\n", largeur4);
      }
      else
         largeur4 = largeur;
+
     // création de l'entête fichier
      entete.signature[0]='B';
      entete.signature[1]='M';
@@ -63,26 +63,26 @@ void creerImage(char *chemin, char *nomFichier, int largeur, int hauteur){
      palette[ROUGE].vert = 0;  // RVB pour le rouge
 
 
-     // création de l'image
-     // Le codage de l'image se fait en écrivant successivement les bits
-     // correspondant à chaque pixel, ligne par ligne en commençant par le pixel en bas à gauche.
+     /** création du bipMapData
+        Le codage de l'image se fait en écrivant successivement les octets
+        correspondant à chaque pixel, ligne par ligne en commençant
+        par le pixel en bas à gauche. **/
 
 
-     bipMapData = (char *) malloc(sizeof(char) * largeur4 * hauteur);
+     bipMapData = (char *) malloc(sizeof(char) * largeur4 * hauteur + 2);
+     memset(bipMapData, 0, largeur4 * hauteur + 2);
+
      for (i = 0; i< (hauteur); i++){  // pour chacune des lignes
-         for (j = 0; j< largeur/3; j++){  // 1/3 en bleu
+         for (j = 0; j< largeur/3; j++){  // premier tiers en bleu
             bipMapData[i*largeur4 + j]= BLEU;
          }
-         for (j = largeur/3; j< 2*largeur/3; j++){  // deuxième 1/3 en blanc
+         for (j = largeur/3; j< 2*largeur/3; j++){  // deuxième tiers en blanc
             bipMapData[i*largeur4 + j]= BLANC;
          }
-         for (j = 2*largeur/3; j< largeur; j++){  // troisième 1/3 en rouge
+         for (j = 2*largeur/3; j< largeur; j++){  // troisième tiers en rouge
             bipMapData[i*largeur4 + j]= ROUGE;
          }
-
-
      }
-
 
     strcpy(nomComplet, chemin);
     strcat(nomComplet, nomFichier);
@@ -99,14 +99,11 @@ void creerImage(char *chemin, char *nomFichier, int largeur, int hauteur){
             printf("Erreur d'écriture de la palette\n");
             return;
     	}
-    	if (fwrite(bipMapData, sizeof(char), largeur*hauteur, ptFichier) != largeur*hauteur){
+    	if (fwrite(bipMapData, sizeof(char), largeur4*hauteur+2, ptFichier) != largeur4*hauteur+2){
 	    printf("Erreur d'écriture de l'image\n");
 	    return;
         }
-        if (fwrite("\0\0", sizeof(char), 2, ptFichier) != 2){
-            printf("Erreur d'écriture fin de fichier\n");
-            return;
-        }
+
     fclose (ptFichier);
     }
     return;

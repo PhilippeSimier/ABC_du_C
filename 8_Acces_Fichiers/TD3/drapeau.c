@@ -11,12 +11,17 @@
 int main()
 {
     int largeur, hauteur;
+    char nom[255];
 
     printf("Création d'un drapeau français au format BMP\n");
+    printf(" Nom du fichier : ");
+    scanf("%s", nom);
     printf(" Largeur de l'image : ");
     scanf("%d", &largeur);
+
+
     printf(" Hauteur de l'image : ");
     scanf("%d", &hauteur);
-    creerImage("./", "France.bmp", largeur, hauteur);
+    creerImage("./", nom, largeur, hauteur);
     return 0;
 }

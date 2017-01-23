@@ -10,18 +10,30 @@ void testErreur(){
 void creerImage(char *chemin, char *nomFichier, int largeur, int hauteur){
 
     FILE * ptFichier;
-    BMP_FICHIER_HEAD entete;             // un entête de fichier
-    COULEUR palette[NB_COULEURS];        // une palette de 3 couleurs
-    char *image;
+    BMP_FICHIER_HEAD entete;                   // un entête de fichier
+    COULEUR palette[NB_COULEURS]={{0}};        // une palette de NB couleurs
+    char *bipMapData;                          // Un tableau de données
     INDICE i;
     int j;
+    int largeur4;                               // nb d'octet d'une ligne
 
     char nomComplet[1024]={0};
 
+    /** Chaque ligne de l'image doit comporter un nombre total d'octets
+        qui soit un multiple de 4; si ce n'est pas le cas, la ligne doit
+        être complétée par des 0 de telle manière à respecter ce critère.
+    **/
+
+     if ((largeur%4) != 0){
+        largeur4 = (largeur/4)*4 + 4;
+        printf("ligne : %d\n", largeur4);
+     }
+     else
+        largeur4 = largeur;
     // création de l'entête fichier
      entete.signature[0]='B';
      entete.signature[1]='M';
-     entete.taille = sizeof(BMP_FICHIER_HEAD) + sizeof(palette) + (largeur*hauteur) + 2;
+     entete.taille = sizeof(BMP_FICHIER_HEAD) + sizeof(palette) + (largeur4 *hauteur)+2 ;
      entete.offsetImage = sizeof(BMP_FICHIER_HEAD) + sizeof(palette);
      entete.reserve = 0;
 
@@ -41,7 +53,7 @@ void creerImage(char *chemin, char *nomFichier, int largeur, int hauteur){
      // création de la palette
      for (i = BLANC; i < NB_COULEURS; i++){
           palette[i].bleu = 255;
-          palette[i].rouge = 255;  // blanc pour toute la palette
+          palette[i].rouge = 255;  // blanc pour toutes les couleurs de la palette
           palette[i].vert = 255;
           palette[i].alpha = 0;
      }
@@ -49,24 +61,26 @@ void creerImage(char *chemin, char *nomFichier, int largeur, int hauteur){
      palette[BLEU].vert = 0;  // RVB pour le bleu
      palette[ROUGE].bleu = 0;
      palette[ROUGE].vert = 0;  // RVB pour le rouge
-     palette[NOIR].rouge = 0;
-     palette[NOIR].vert = 0;  // RVB pour le noir
-     palette[NOIR].bleu = 0;
+
 
      // création de l'image
      // Le codage de l'image se fait en écrivant successivement les bits
      // correspondant à chaque pixel, ligne par ligne en commençant par le pixel en bas à gauche.
-     image = (char *) malloc(sizeof(char) * largeur * hauteur);
+
+
+     bipMapData = (char *) malloc(sizeof(char) * largeur4 * hauteur);
      for (i = 0; i< (hauteur); i++){  // pour chacune des lignes
          for (j = 0; j< largeur/3; j++){  // 1/3 en bleu
-            image[i*largeur + j]= BLEU;
+            bipMapData[i*largeur4 + j]= BLEU;
          }
          for (j = largeur/3; j< 2*largeur/3; j++){  // deuxième 1/3 en blanc
-            image[i*largeur + j]= BLANC;
+            bipMapData[i*largeur4 + j]= BLANC;
          }
          for (j = 2*largeur/3; j< largeur; j++){  // troisième 1/3 en rouge
-            image[i*largeur + j]= ROUGE;
+            bipMapData[i*largeur4 + j]= ROUGE;
          }
+
+
      }
 
 
@@ -85,7 +99,7 @@ void creerImage(char *chemin, char *nomFichier, int largeur, int hauteur){
             printf("Erreur d'écriture de la palette\n");
             return;
     	}
-    	if (fwrite(image, sizeof(char), largeur*hauteur, ptFichier) != largeur*hauteur){
+    	if (fwrite(bipMapData, sizeof(char), largeur*hauteur, ptFichier) != largeur*hauteur){
 	    printf("Erreur d'écriture de l'image\n");
 	    return;
         }

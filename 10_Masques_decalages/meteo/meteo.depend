@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1486371083 source:/home/USERS/PROFS/psimier/2016/snir1/projets_C/meteo/main.c
+	"biblio_Meteo.h"
+
+1486370742 /home/USERS/PROFS/psimier/2016/snir1/projets_C/meteo/biblio_Meteo.h
+	<stdio.h>
+	<stdlib.h>
+

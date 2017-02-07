@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1486375922 source:/home/USERS/PROFS/psimier/2016/snir1/projets_C/adresse_IP/main.c
+	<stdio.h>
+	<stdlib.h>
+

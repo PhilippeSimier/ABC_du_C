@@ -1,0 +1,21 @@
+Le langage C
+Kernighan Ritchie
+1986 5 17.00 2-266-11156-6 3
+Les fables
+J. de la Fontaine
+1995 4 3.40 2-253-01004-9 6
+Le langage Java
+Arnold Gosling
+1996 5 87.70 2-841-80994-3 10
+Harry Potter
+J. K. Rowling
+2011 3 9.64 1-338-09913-2 3
+Candide
+Voltaire
+1999 4 2.99 1-503-25379-1 2
+Le contrat social
+J.J. Rousseau
+2001 4 9.98 2-335-02830-8 5
+Britannicus
+Jean Racine
+1980 4 5.00 2-035-83203-9 1

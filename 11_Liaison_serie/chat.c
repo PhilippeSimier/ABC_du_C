@@ -1,7 +1,7 @@
 /***************************************************************************
 *   sujet : application chat (dialoque entre deux PC à travers 
 *   la liaison série
-*
+*   fin du dialogue message 'bye'
 *   compilation : gcc chat.c -o chat
 *
 ***************************************************************************/
@@ -47,21 +47,17 @@ void emission(int fd, char message[]){
 
 }
 
-
-
-
-
 int main(int argc, char **argv) {
   int retour, fd;
   char message[255];
-  int modele = 3; // pour une rasberry pi3
+  int modele = 2; // pour une rasberry pi3
 
   configure(modele);
   if (modele == 3){
       fd = open("/dev/ttyS0", O_RDWR | O_NOCTTY);
   }
   else{
-      fd = open("dev/ttyAMA0", O_RDWR | O_NOCTTY);
+      fd = open("/dev/ttyAMA0", O_RDWR | O_NOCTTY);
   }
 
   if ( fd == -1 ) {
@@ -69,10 +65,14 @@ int main(int argc, char **argv) {
     return (errno);
   }
   emission(fd, "Bienvenue sur le chat !!!\n");
-  while (1){
-    printf("votre message :");
-    scanf("%s",message);
+  while (strcmp(message,"bye")){
+    printf("votre message : ");
+    memset(message, 0, 255);    // efface le buffer du message à émettre
+    scanf("%[^\n]%*c", message);
     emission(fd,message);
+    emission(fd,"\n");
+
+    printf("\n Réponse : ");
     reception(fd);
   }
   retour = close(fd);

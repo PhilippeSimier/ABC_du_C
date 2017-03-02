@@ -13,14 +13,18 @@
 #include <fcntl.h>
 #include <errno.h>
 
-void configure(int modele){
+int configure(int modele){
+  int fd;
   system("clear"); // Efface l'écran et configure la liaison série
   if (modele == 3){
      system("stty -F /dev/ttyS0 9600 cs8 -parenb -parodd -ixon");
+     fd = open("/dev/ttyS0", O_RDWR | O_NOCTTY);
   }
   else{
      system("stty -F /dev/ttyAMA0 9600 cs8 -parenb -parodd -ixon");
+     fd = open("/dev/ttyAMA0", O_RDWR | O_NOCTTY);fd = open("/dev/ttyAMA0", O_RDWR | O_NOCTTY);
   }
+  return fd;
 }
 
 void reception(int fd){
@@ -50,22 +54,16 @@ void emission(int fd, char message[]){
 int main(int argc, char **argv) {
   int retour, fd;
   char message[255];
-  int modele = 2; // pour une rasberry pi3
+  int modele = 2; // 3 pour une rasberry pi3 et 2 pour pi2
 
-  configure(modele);
-  if (modele == 3){
-      fd = open("/dev/ttyS0", O_RDWR | O_NOCTTY);
-  }
-  else{
-      fd = open("/dev/ttyAMA0", O_RDWR | O_NOCTTY);
-  }
-
+  fd = configure(modele);
   if ( fd == -1 ) {
     printf("pb ouverture: %s\n", strerror(errno));
     return (errno);
   }
+
   emission(fd, "Bienvenue sur le chat !!!\n");
-  while (strcmp(message,"bye")){
+  while (strncmp(message,"bye",3)){
     printf("votre message : ");
     memset(message, 0, 255);    // efface le buffer du message à émettre
     scanf("%[^\n]%*c", message);

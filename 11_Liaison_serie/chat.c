@@ -63,7 +63,7 @@ int main(int argc, char **argv) {
   }
 
   emission(fd, "Bienvenue sur le chat !!!\n");
-  while (strncmp(message,"bye",3)){
+  do{
     printf("votre message : ");
     memset(message, 0, 255);    // efface le buffer du message à émettre
     scanf("%[^\n]%*c", message);
@@ -73,6 +73,8 @@ int main(int argc, char **argv) {
     printf("\n Réponse : ");
     reception(fd);
   }
+  while (strncmp(message,"bye",3));
+
   retour = close(fd);
 
   if ( retour == -1 ) {

@@ -32,12 +32,12 @@ void reception(int fd){
   int n=0;
   memset(recu, 0, 255);    // efface le buffer
   do{
-      n=read(fd, recu, 1); // reception d'un caratère
+      n=read(fd, recu, 1); // réception d'un caractère
       if (n==1){
-        printf("%c", recu[0]);   // affichage du caratère reçu
+        printf("%c", recu[0]);   // affichage du caractère reçu
         }
   }
-  while (recu[0]!='\n');
+  while (recu[0]!='\n');   // caractère de fin de message \n
 }
 
 void emission(int fd, char message[]){

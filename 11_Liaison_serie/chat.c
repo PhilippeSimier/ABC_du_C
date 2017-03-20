@@ -35,6 +35,7 @@ void reception(int fd){
       n=read(fd, recu, 1); // réception d'un caractère
       if (n==1){
         printf("%c", recu[0]);   // affichage du caractère reçu
+	fflush( stdout );        // vide le buffer
         }
   }
   while (recu[0]!='\n');   // caractère de fin de message \n

@@ -83,7 +83,7 @@ void configurerSerie (int fd, const int baud)
 }
 
 
-void reception(int fd, char *message, char fin){
+void recevoirChaine(const int fd, char *message, char fin){
     char buffer;
     int nb_lus;
 
@@ -99,4 +99,17 @@ void reception(int fd, char *message, char fin){
     }
     while (buffer != fin);           // tant que pas un  caratère fin (code 10 par exemple)
     *message = 0;         // fin de message
+}
+
+void flush (const int fd){
+  tcflush (fd, TCIOFLUSH) ;
+}
+
+
+void envoyerUnCaratere (const int fd, const unsigned char c){
+  write (fd, &c, 1) ;
+}
+
+void envoyerChaine (const int fd, const char *s){
+  write (fd, s, strlen (s)) ;
 }

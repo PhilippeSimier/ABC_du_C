@@ -12,6 +12,9 @@
 
 int  ouvrirSerie(const char *device);
 void configurerSerie (int fd, const int baud);
-void reception(int fd, char *message, char fin);
+void recevoirChaine(int fd, char *message, char fin);
+void flush (const int fd);
+void envoyerUnCaratere (const int fd, const unsigned char c);
+void envoyerChaine (const int fd, const char *s);
 
 #endif

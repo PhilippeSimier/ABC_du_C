@@ -21,8 +21,8 @@ int configure(int modele){
      fd = open("/dev/ttyS0", O_RDWR | O_NOCTTY);
   }
   else{
-     system("stty -F /dev/ttyAMA0 9600 cs8 -parenb -parodd -ixon");
-     fd = open("/dev/ttyAMA0", O_RDWR | O_NOCTTY);fd = open("/dev/ttyAMA0", O_RDWR | O_NOCTTY);
+     system("stty -F /dev/ttyUSB0 9600 cs8 -parenb -parodd -ixon");
+     fd = open("/dev/ttyUSB0", O_RDWR | O_NOCTTY);
   }
   return fd;
 }

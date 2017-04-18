@@ -1,5 +1,5 @@
 /***************************************************************************
-*   sujet : application lecteur RFID
+*   sujet : application lecteur RFID tag 125khz
 *
 *
 *   compilation : gcc rfid.c -o rfid
@@ -26,7 +26,17 @@ int ouvrirSerie(const char *device){
     }
     return fd;
 }
+/**************************************************************************
+   Configuration du port série en mode non canonique
+   Deux paramètres contrôlent ce mode :
+   c_cc[VTIME] positionne le timer de caractères,
+   et c_cc[VMIN] indique le nombre minimum de caractères à recevoir
+   avant qu'une lecture soit satisfaite.
 
+   Si MIN > 0 et TIME = 0, MIN indique le nombre de caractères à recevoir
+   avant que la lecture soit satisfaite.
+   TIME est égal à zéro, indique que le timer n'est pas utilisé.
+****************************************************************************/
 void configurerSerie (int fd, const int baud)
 {
     struct termios term;
@@ -89,20 +99,22 @@ void configurerSerie (int fd, const int baud)
 }
 
 
-void reception(int fd){
-    char buffer[255];
+void reception(int fd, char *message, char fin){
+    char buffer;
     int nb_lus;
 
-    memset(buffer, 0, 255);                  // efface le buffer
     do{
-      	nb_lus = read(fd, buffer, 1);     // réception d'un caractère
+      	nb_lus = read(fd, &buffer, 1);     // réception d'un caractère
       	if (nb_lus < 0) {
 		printf("Erreur de réception\n");
 		exit(EXIT_FAILURE);
       	}
-      	write(STDOUT_FILENO, buffer, nb_lus);       // Ecriture des caractères sortie standard
+      	// write(STDOUT_FILENO, &buffer, nb_lus);  // Ecriture d'un caractère sur sortie standard
+	*message = buffer;
+	message++;
     }
-    while (buffer[0] != 10);           // tant que pas un  caratère LF (code 10)
+    while (buffer != fin);           // tant que pas un  caratère fin (code 10 par exemple)
+    *message = 0;         // fin de message
 }
 
 int main(int argc, char **argv) {
@@ -113,8 +125,8 @@ int main(int argc, char **argv) {
     fd = ouvrirSerie("/dev/ttyUSB0");
     configurerSerie(fd, 9600);
     for (i=0; i < 40; i++){
-	printf("%d :\n", i); 
-	reception(fd);
+	reception(fd, message, 10);
+	printf("%d : %s", i, message);
     }
     close(fd);
 }

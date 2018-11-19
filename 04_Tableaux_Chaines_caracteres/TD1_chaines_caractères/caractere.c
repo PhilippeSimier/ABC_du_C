@@ -94,6 +94,7 @@ int comptageMots(char phrase[]){
 void Inverser(char phrase[],char phraseInverse[]){
     int longueur;
     int i;
+    longueur = strlen(phrase);
     for(i=0; i<longueur; i++){
         phraseInverse[i] = phrase[longueur - i -1];
     }

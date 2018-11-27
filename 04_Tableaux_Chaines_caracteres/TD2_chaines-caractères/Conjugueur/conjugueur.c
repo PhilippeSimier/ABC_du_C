@@ -36,12 +36,12 @@ void conjuguerAuPresent(char verbe[]){
    char *terminaison3[6] = { "èle" , "èles" , "èle" , "elons" , "elez" , "èlent"}; 
    // Terminaisons pour les verbe en eter exceptions (acheter)
    char *terminaison4[6] = { "ète" , "ètes" , "ète" , "etons" , "etez" , "ètent"};
-   
+   char **terminaison;
    char radical[255];
    int type, i;
    
    
-type = obtenirRadical(radical , verbe);
+   type = obtenirRadical(radical , verbe);
    printf("type : %d Radical : %s\n", type, radical);
    if (radical[strlen(radical)-1] == 'g'){   //manger donne mangeons
        terminaison0[3] = "eons";
@@ -49,31 +49,26 @@ type = obtenirRadical(radical , verbe);
    if (deroger(radical[0])){   // verbe commençant par a e i o u h aimer hypnotiser 
        pronom[0] = "j'\t\t";
    }
-   if (type == 0){ 
-        for ( i=0; i<6; i++){
-            printf("%s%s%s\n", pronom[i], radical, terminaison0[i]);
-        }
-   }     
-   if (type == 1){  // verbe finissant par eter (projeter jeter)
-        for ( i=0; i<6; i++){
-            printf("%s%s%s\n", pronom[i], radical, terminaison1[i]);
-        }
+   
+   switch(type){
+       case 0: 
+            terminaison = terminaison0;
+            break;
+       case 1:
+            terminaison = terminaison1;
+            break;
+       case 2:
+            terminaison = terminaison2;
+            break;
+       case 3:
+            terminaison = terminaison3;
+            break;     
+            
    }
-   if (type == 2){  // verbe finissant en eler (appeler)
-        for ( i=0; i<6; i++){
-            printf("%s%s%s\n", pronom[i], radical, terminaison2[i]);
-        }
+   for ( i=0; i<6; i++){
+            printf("%s%s%s\n", pronom[i], radical, terminaison[i]);
    }
-   if (type == 3){  // verbe finissant en eler exception (geler)
-        for ( i=0; i<6; i++){
-            printf("%s%s%s\n", pronom[i], radical, terminaison3[i]);
-        }
-   }
-   if (type == 4){  // verbe finissant en eter exception (acheter)
-        for ( i=0; i<6; i++){
-            printf("%s%s%s\n", pronom[i], radical, terminaison4[i]);
-        }
-   }
+   
    
    
 }

@@ -49,7 +49,7 @@ void conjuguerAuPresent(char verbe[]){
    if (deroger(radical[0])){   // verbe commençant par a e i o u h aimer hypnotiser 
        pronom[0] = "j'\t\t";
    }
-   
+   // Sélection du tableau de terminaison en fonction du type
    switch(type){
        case 0: 
             terminaison = terminaison0;
@@ -62,16 +62,16 @@ void conjuguerAuPresent(char verbe[]){
             break;
        case 3:
             terminaison = terminaison3;
-            break;     
+            break;
+       case 4:
+            terminaison = terminaison4;
+            break;
             
    }
    for ( i=0; i<6; i++){
             printf("%s%s%s\n", pronom[i], radical, terminaison[i]);
    }
-   
-   
-   
-}
+ }
 
 logique isPremierGroupe(char verbe[]){
     logique retour = NON;

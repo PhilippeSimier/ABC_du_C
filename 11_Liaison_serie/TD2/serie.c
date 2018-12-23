@@ -87,8 +87,12 @@ void configurerSerie (int fd, const int baud,  typeEcho echo ){
     term.c_cflag &= ~(PARENB | CSIZE);
     term.c_cflag |= CS8;
 
-    /* vitesse de la transmission */
-    term.c_cflag |= myBaud;
+    /* vitesse de la transmission
+       Vitesse de communication (version simple, utilisant les
+       constantes  prédéfinies ) */
+    if(cfsetispeed(&term, myBaud) < 0 || cfsetospeed(&term, myBaud) < 0) {
+       printf("Erreur configuration\n");
+    }
 
     /* Une fois que Les champs ont été modifiés,
        il faut enregistrer Les modifications au moyen

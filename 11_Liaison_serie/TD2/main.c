@@ -7,12 +7,12 @@ int main(int argc, char** argv) {
     int fdSerie;
     char message[1000];
     int nb = 0;
+    int vitesse = 115200;
 
-
-    fdSerie = OuvrirPort("/dev/ttyUSB0");
-    configurerSerie(fdSerie, 9600, NOECHO);
+    fdSerie = OuvrirPort("/dev/ttyS0");
+    configurerSerie(fdSerie, vitesse, ECHO);
     viderBuffer(fdSerie);
-    printf("la liaison série ttyUSB0 est configurée à 9600 8N1\n");
+    printf("la liaison série ttyS0 est configurée à %d 8N1\n", vitesse);
 
     // reception de message avec echo des caractères reçus
     do{
@@ -26,7 +26,7 @@ int main(int argc, char** argv) {
     // tant que le message reçu est différent de bye
 
     fermerPort(fdSerie);
-    printf("la liaison série ttyUSB0 est fermée\n");
+    printf("la liaison série ttyS0 est fermée\n");
     return (EXIT_SUCCESS);
 }
 

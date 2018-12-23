@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   serie.h
  * Author: psimier
  *
@@ -13,7 +13,7 @@ typedef enum {NOECHO,ECHO}typeEcho;
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>  //read write open
-#include <string.h>  // strlen 
+#include <string.h>  // strlen
 #include <fcntl.h>
 #include <errno.h>   // erreur syteme
 #include <termios.h>   // structure pour configuration serie
@@ -21,11 +21,12 @@ typedef enum {NOECHO,ECHO}typeEcho;
 
 
 int  OuvrirPort(const char *device);
-void configurerSerie (int fd, const int baud);
-int recevoirMessage(int fd, char *message, char fin, typeEcho echo);
+void configurerSerie (int fd, const int baud,  typeEcho echo  );
+int  recevoirMessage(int fd, char *message, char fin );
 void envoyerCaractere (const int fd, const unsigned char c);
 int  envoyerMessage (const int fd, const char *s);
 void viderBuffer (const int fd);
-
+void fermerPort (const int fd);
+int  octetDisponible(const int fd);
 #endif /* SERIE_H */
 

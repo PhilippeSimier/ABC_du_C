@@ -12,7 +12,7 @@ int main(int argc, char** argv) {
     fdSerie = OuvrirPort("/dev/ttyS0");
     configurerSerie(fdSerie, vitesse, ECHO);
     viderBuffer(fdSerie);
-    printf("la liaison série ttyS0 est configurée à %d 8N1\n", vitesse);
+    printf("Vitesse : %s\n", obtenirVitesse(fdSerie));
 
     // reception de message avec echo des caractères reçus
     do{

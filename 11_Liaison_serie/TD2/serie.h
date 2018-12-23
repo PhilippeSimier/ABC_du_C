@@ -28,5 +28,7 @@ int  envoyerMessage (const int fd, const char *s);
 void viderBuffer (const int fd);
 void fermerPort (const int fd);
 int  octetDisponible(const int fd);
+char *obtenirVitesse(const int fd);
+
 #endif /* SERIE_H */
 

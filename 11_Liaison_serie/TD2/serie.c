@@ -163,3 +163,43 @@ int octetDisponible(const int fd){
 
   return result ;
 }
+
+char *obtenirVitesse(const int fd) {
+    static char   SPEED[20];
+    speed_t speed;
+    struct termios term;
+
+    if (tcgetattr(fd, &term) != 0)
+        perror("tcgetattr() error");
+    else {
+        speed = cfgetispeed(&term);
+
+    switch (speed) {
+       	case B0:       strcpy(SPEED, "0");         break;
+    	case B50:      strcpy(SPEED, "50");        break;
+    	case B75:      strcpy(SPEED, "75");        break;
+    	case B110:     strcpy(SPEED, "110");       break;
+    	case B134:     strcpy(SPEED, "134");       break;
+    	case B150:     strcpy(SPEED, "150");       break;
+    	case B200:     strcpy(SPEED, "200");       break;
+    	case B300:     strcpy(SPEED, "300");       break;
+    	case B600:     strcpy(SPEED, "600");       break;
+    	case B1200:    strcpy(SPEED, "1200");      break;
+    	case B1800:    strcpy(SPEED, "1800");      break;
+    	case B2400:    strcpy(SPEED, "2400");      break;
+    	case B4800:    strcpy(SPEED, "4800");      break;
+    	case B9600:    strcpy(SPEED, "9600");      break;
+    	case B19200:   strcpy(SPEED, "19200");     break;
+    	case B38400:   strcpy(SPEED, "38400");     break;
+    	case B57600:   strcpy(SPEED, "57600");     break ;
+    	case B115200:  strcpy(SPEED, "115200");    break ;
+    	case B230400:  strcpy(SPEED, "230400");    break ;
+
+    	default:       sprintf(SPEED, "unknown (%d)", (int) speed);
+        }
+    }
+    return SPEED;
+}
+
+
+

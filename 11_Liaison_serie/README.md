@@ -9,9 +9,13 @@ Avant d’utiliser le port série, vérifier que la console n’est pas en écou
 pi@raspPi3plus:~ $ sudo raspi-config
 ```
 ![raspi-config ](/11_Liaison_serie/images/raspi-config.PNG)
+
 Sélectionner l'**option 5**  puis **P6 serial**
+
 ![ecran2 ](/11_Liaison_serie/images/ecran2.PNG)
+
 Désactiver le shell sur le port série, puis activer l'interface série.
+
 ![ecran3 ](/11_Liaison_serie/images/ecran3.PNG)
 
 ## 2 Configuration en ligne de commande
@@ -33,7 +37,36 @@ Pour effectuer un test de transmission en ligne de commande : rediriger la sorti
 ```bash
 pi@raspPi3plus:~ $ echo 'bonjour le monde' > /dev/ttyS0
 ```
+## 3 Programmation en C
+Sous Linux rasbian, chaque port série de votre raspberry est représenté par un fichier de périphérique situé dans le répertoire /dev. Le port série présent sur le connecteur 40 broches correspond au fichier **/dev/ttyS0**.
+Les ports séries correspondant aux adaptateurs USB correspondent aux fichiers **/dev/ttyUSB0** **/dev/ttyUSB1** etc
 
+Au niveau d'un programme en C, on ouvre ces fichiers exactement comme on ouvrirait n'importe quel autre fichier grâce à l'appel système **open()** :
+
+```C
+    fd = open(device, O_RDWR | O_NOCTTY );
+    if ( fd == -1 ) {
+        printf("pb ouverture: %s\n", strerror(errno));
+        exit(EXIT_FAILURE);
+    }
+
+```
+Une fois que le port est ouvert, on peut y lire et y écrire des caractères au moyen des primitives read() et write().
+
+### 3-1 Paramétrage de la liaison série
+Tous les paramètres d'une liaison sont regroupés dans une structure appelée termios et définie dans le fichier `<termios.h>`  qu'il nous faut donc inclure.
+Cette structure comporte les champs suivants :
+```C
+struct termios {
+		tcflag_t c_iflag;		/* input mode flags */
+		tcflag_t c_oflag;		/* output mode flags */
+		tcflag_t c_cflag;		/* control mode flags */
+		tcflag_t c_lflag;		/* local mode flags */
+		cc_t c_line;			/* line discipline */
+		cc_t c_cc[NCCS];		/* control characters */
+	};
+```
+La fonction **tcgetattr()** permet d'obtenir les paramètres actuels d'une liaison. 
 
 ## Changelog
 

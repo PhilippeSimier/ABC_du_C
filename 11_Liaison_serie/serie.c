@@ -19,32 +19,6 @@ int OuvrirPort(const char *device){
 void configurerSerie (int fd, const int baud,  typeEcho echo ){
 
     struct termios term;
-    speed_t myBaud;
-
-    switch (baud){
-    	case     50:        myBaud =     B50 ; break ;
-    	case     75:        myBaud =     B75 ; break ;
-    	case    110:        myBaud =    B110 ; break ;
-    	case    134:        myBaud =    B134 ; break ;
-    	case    150:        myBaud =    B150 ; break ;
-    	case    200:        myBaud =    B200 ; break ;
-    	case    300:        myBaud =    B300 ; break ;
-    	case    600:        myBaud =    B600 ; break ;
-    	case   1200:        myBaud =   B1200 ; break ;
-    	case   1800:        myBaud =   B1800 ; break ;
-    	case   2400:        myBaud =   B2400 ; break ;
-    	case   4800:        myBaud =   B4800 ; break ;
-    	case   9600:        myBaud =   B9600 ; break ;
-    	case  19200:        myBaud =  B19200 ; break ;
-    	case  38400:        myBaud =  B38400 ; break ;
-    	case  57600:        myBaud =  B57600 ; break ;
-    	case 115200:        myBaud = B115200 ; break ;
-    	case 230400:        myBaud = B230400 ; break ;
-
-    	default:
-      	    myBaud =   B9600;
-    }
-
 
     // La fonction tcgetattr permet d'obtenir les paramètres actuels d'une liaison.
     tcgetattr(fd, &term);
@@ -52,7 +26,7 @@ void configurerSerie (int fd, const int baud,  typeEcho echo ){
     /* c_iflag : les modes d'entrée
        Ils définissent un traitement à appliquer sur les caractères en provenance
        de la liaison série */
-    term.c_iflag = IGNBRK; // IGNBRK les caractères BREAK sont ignorés.
+    term.c_iflag = IGNBRK; // IGNBRK les caractères BREAK (ctrl Z) sont ignorés.
     /* Inhibe le controle de flux XON/XOFF */
     term.c_iflag &= ~(IXON|IXOFF|IXANY);
 
@@ -69,8 +43,8 @@ void configurerSerie (int fd, const int baud,  typeEcho echo ){
        Ils définissent un traitement à appliquer sur les caractères envoyés sur la liaison série.*/
     term.c_oflag = 0;
 
-
-    /* VMIN : en mode non-canonique, spécifie le nombre de caractéres
+    /* c_cc : control characters
+       VMIN : en mode non-canonique, spécifie le nombre de caractéres
               que doit contenir le tampon pour être accessible à la lecture.
               En général, on fixe cette valeur à 1. */
     term.c_cc[VMIN] = 1;
@@ -90,6 +64,32 @@ void configurerSerie (int fd, const int baud,  typeEcho echo ){
     /* vitesse de la transmission
        Vitesse de communication (version simple, utilisant les
        constantes  prédéfinies ) */
+
+    speed_t myBaud;
+    switch (baud){
+        case     50:        myBaud =     B50 ; break ;
+        case     75:        myBaud =     B75 ; break ;
+        case    110:        myBaud =    B110 ; break ;
+        case    134:        myBaud =    B134 ; break ;
+        case    150:        myBaud =    B150 ; break ;
+        case    200:        myBaud =    B200 ; break ;
+        case    300:        myBaud =    B300 ; break ;
+        case    600:        myBaud =    B600 ; break ;
+        case   1200:        myBaud =   B1200 ; break ;
+        case   1800:        myBaud =   B1800 ; break ;
+        case   2400:        myBaud =   B2400 ; break ;
+        case   4800:        myBaud =   B4800 ; break ;
+        case   9600:        myBaud =   B9600 ; break ;
+        case  19200:        myBaud =  B19200 ; break ;
+        case  38400:        myBaud =  B38400 ; break ;
+        case  57600:        myBaud =  B57600 ; break ;
+        case 115200:        myBaud = B115200 ; break ;
+        case 230400:        myBaud = B230400 ; break ;
+
+        default:
+            myBaud =   B9600;
+    }
+
     if(cfsetispeed(&term, myBaud) < 0 || cfsetospeed(&term, myBaud) < 0) {
        printf("Erreur configuration\n");
     }

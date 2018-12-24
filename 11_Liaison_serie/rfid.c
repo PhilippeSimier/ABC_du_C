@@ -1,26 +1,39 @@
-/****************************************************************************
-*   sujet : application lecteur RFID tag 125khz
-*
-*
-*   compilation : gcc rfid.c biblio_serie.c -o rfid -Wall
-*
-***************************************************************************/
+/* Programme de test de la liaison série via un adaptateur USB série
+   test la réception des identifiants sur badges RFID
+   Vitesse de transmission 9600 bauds sans ECHO
+   Ce programme renvoie le nb de caractères reçus et le message
+   tant que le message reçu est différent de bye
 
+*/
 
-#include "biblio_serie.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include "serie.h"
 
+int main(int argc, char** argv) {
 
-int main(int argc, char **argv) {
-    int  fd, i;
-    char message[255];
+    int fdSerie;
+    char message[1000];
+    int nb = 0;
+    int vitesse = 9600;
+    char device[]="/dev/ttyUSB1";
 
-    system("clear");
-    fd = ouvrirSerie("/dev/ttyUSB0");
-    configurerSerie(fd, 9600);
-    for (i=0; i < 40; i++){
-	recevoirChaine(fd, message, 10);
-	printf("%d : %s", i, message);
+    fdSerie = OuvrirPort(device);
+    configurerSerie(fdSerie, vitesse, NOECHO);
+    viderBuffer(fdSerie);
+    printf("%s Vitesse : %s\n", device, obtenirVitesse(fdSerie));
+
+    // reception de message avec echo des caractères reçus
+    do{
+        nb = recevoirMessage(fdSerie, message,'\n' );
+        printf("%d caractères reçus : %s", nb, message);
+
     }
-    close(fd);
-    return 0;
+    while(1);
+    // tant que vrai
+
+    fermerPort(fdSerie);
+    printf("la liaison série %s est fermée\n", device);
+    return (EXIT_SUCCESS);
 }
+

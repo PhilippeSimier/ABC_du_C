@@ -5,11 +5,11 @@ Avant d’utiliser le port série, vérifier que la console n’est pas en écou
 ```bash
 pi@raspPi3plus:~ $ sudo raspi-config
 ```
-![raspi-config ](/images/raspi-config.PNG)
+![raspi-config ](/11_Liaison_serie/images/raspi-config.PNG)
 Sélectionner l'**option 5**  puis **P6 serial**
-![ecran2 ](/images/ecran2.PNG)
+![ecran2 ](/11_Liaison_serie/images/ecran2.PNG)
 Désactiver le shell sur le port série, puis activer l'interface série.
-![ecran3 ](/images/ecran3.PNG)
+![ecran3 ](/11_Liaison_serie/images/ecran3.PNG)
 
 ## 2 Configuration en ligne de commande
 

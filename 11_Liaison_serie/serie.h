@@ -18,17 +18,20 @@ typedef enum {NOECHO,ECHO}typeEcho;
 #include <errno.h>   // erreur syteme
 #include <termios.h>   // structure pour configuration serie
 #include <sys/ioctl.h>   // fonctions pour accéder au driver
+#include <sys/file.h>    // flock (fonction pour vérouiller l'accès)
 
-
-int  OuvrirPort(const char *device);
-void configurerSerie (int fd, const int baud,  typeEcho echo  );
-int  recevoirMessage(int fd, char *message, char fin );
+int  OuvrirPort       (const char *device);
+void configurerSerie  (int fd, const int baud,  typeEcho echo  );
+int  recevoirMessage  (int fd, char *message, char fin );
 void envoyerCaractere (const int fd, const unsigned char c);
-int  envoyerMessage (const int fd, const char *s);
-void viderBuffer (const int fd);
-void fermerPort (const int fd);
-int  octetDisponible(const int fd);
-char *obtenirVitesse(const int fd);
+int  envoyerMessage   (const int fd, const char *s);
+void viderBuffer      (const int fd);
+void fermerPort       (const int fd);
+
+int  octetDisponible  (const int fd);
+char *obtenirVitesse  (const int fd);
+int  obtenirDTR       (const int fd);
+void fixerDTR         (const int val);
 
 #endif /* SERIE_H */
 

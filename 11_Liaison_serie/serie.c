@@ -1,14 +1,25 @@
-
 #include "serie.h"
 
 int OuvrirPort(const char *device){
     int fd = -1;
-    fd = open(device, O_RDWR | O_NOCTTY );
+    // Ouverture du fichier
+    fd = open(device, O_RDWR | O_NOCTTY);
     if ( fd == -1 ) {
         printf("pb ouverture: %s\n", strerror(errno));
         exit(EXIT_FAILURE);
     }
-    return fd;
+
+    /* Place un verrou exclusif.
+      Un seul processus peut détenir un verrou exclusif sur un fichier
+      donné à un moment donné. */
+    if ( flock( fd , LOCK_EX | LOCK_NB) == 0 ) {
+    	printf ("Verrouillage effectué  \n");
+        return fd;
+    }
+    else{
+        printf("Pb verrou: %s\n", strerror(errno));
+        exit(EXIT_FAILURE);
+    }
 }
 
 
@@ -26,7 +37,7 @@ void configurerSerie (int fd, const int baud,  typeEcho echo ){
     /* c_iflag : les modes d'entrée
        Ils définissent un traitement à appliquer sur les caractères en provenance
        de la liaison série */
-    term.c_iflag = IGNBRK; // IGNBRK les caractères BREAK (ctrl Z) sont ignorés.
+    term.c_iflag = IGNBRK | IGNPAR; // IGNBRK les signaux BREAK (ctrl Z) sont ignorés.
     /* Inhibe le controle de flux XON/XOFF */
     term.c_iflag &= ~(IXON|IXOFF|IXANY);
 
@@ -41,7 +52,7 @@ void configurerSerie (int fd, const int baud,  typeEcho echo ){
     }
     /* c_oflag : les modes de sortie
        Ils définissent un traitement à appliquer sur les caractères envoyés sur la liaison série.*/
-    term.c_oflag = 0;
+    term.c_oflag = 0;  // Pas de mode particulier
 
     /* c_cc : control characters
        VMIN : en mode non-canonique, spécifie le nombre de caractéres
@@ -98,13 +109,6 @@ void configurerSerie (int fd, const int baud,  typeEcho echo ){
        il faut enregistrer Les modifications au moyen
        de la fonction tcsetattr */
     tcsetattr(fd, TCSANOW, &term);
-
-    // play with DTR
-    int iFlags;
-
-    // turn off DTR
-    iFlags = TIOCM_DTR;
-    ioctl(fd, TIOCMBIC, &iFlags);
 }
 
 
@@ -145,16 +149,24 @@ int envoyerMessage (const int fd, const char *s){
     return nb;
 }
 
-/* Pour éliminer tous les caractères reçus par le noyau
+/* Fonction pour éliminer tous les caractères reçus par le noyau
    mais non encore lus par read(), */
 void viderBuffer (const int fd){
   tcflush (fd, TCIOFLUSH) ;
 }
 
+/* Fonction pour fermer le port série*/
 void fermerPort(const int fd){
+
+    // Supprime le verrou  détenu par ce processus.
+    if ( flock (fd , LOCK_UN) == - 1 ) {
+         exit(EXIT_FAILURE);
+    }
     close(fd);
 }
 
+/* Fonction pour obtenir le nombre d’octets
+   immédiatement disponibles pour la lecture. */
 int octetDisponible(const int fd){
   int result ;
 
@@ -164,6 +176,9 @@ int octetDisponible(const int fd){
   return result ;
 }
 
+
+/* Fonction pour obtenir la vitesse
+   de transmission */
 char *obtenirVitesse(const int fd) {
     static char   SPEED[20];
     speed_t speed;
@@ -201,5 +216,23 @@ char *obtenirVitesse(const int fd) {
     return SPEED;
 }
 
+/* Fonction pour obtenir le niveau
+   de DTR broche 4 */
+int obtenirDTR(const int fd) {
 
+    int dtr, serial;
+    ioctl(fd, TIOCMGET, &serial);  // Obtenir le statut des bits du modem.
+    if (serial & TIOCM_DTR)
+        dtr = 1;
+    else
+        dtr = 0;
+    return dtr;
+}
 
+/* Fonction pour définir le niveau
+   de DTR  */
+void fixerDTR(const int fd) {
+
+    int iFlags = TIOCM_DTR;
+    ioctl(fd, TIOCMBIC, &iFlags); // Effacer les bits de modem indiqués.
+}

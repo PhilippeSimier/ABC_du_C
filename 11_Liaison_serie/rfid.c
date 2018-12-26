@@ -16,11 +16,13 @@ int main(int argc, char** argv) {
     char message[1000];
     int nb = 0;
     int vitesse = 9600;
-    char device[]="/dev/ttyUSB1";
+    char device[]="/dev/ttyUSB0";
 
     fdSerie = OuvrirPort(device);
     configurerSerie(fdSerie, vitesse, NOECHO);
     viderBuffer(fdSerie);
+    fixerDTR(fdSerie);
+
     printf("%s Vitesse : %s\n", device, obtenirVitesse(fdSerie));
 
     // reception de message avec echo des caractères reçus

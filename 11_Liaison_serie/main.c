@@ -15,7 +15,7 @@ int main(int argc, char** argv) {
     char message[1000];
     int nb = 0;
     int vitesse = 115200;
-    char device[]="/dev/ttyUSB0";
+    char device[]="/dev/ttyS0";
 
     fdSerie = OuvrirPort(device);
     configurerSerie(fdSerie, vitesse, ECHO);

@@ -52,7 +52,7 @@ void configurerSerie (int fd, const int baud,  typeEcho echo ){
     }
     /* c_oflag : les modes de sortie
        Ils définissent un traitement à appliquer sur les caractères envoyés sur la liaison série.*/
-    term.c_oflag = 0;  // Pas de mode particulier
+    term.c_oflag = 0x00;  // Pas de mode particulier
 
     /* c_cc : control characters
        VMIN : en mode non-canonique, spécifie le nombre de caractéres
@@ -69,8 +69,9 @@ void configurerSerie (int fd, const int baud,  typeEcho echo ){
        Ce champ est important, car c'est ici que l'on définit le débit,
        la parité utilisée, les bits de donnée et de stop,
        8 bits de données, pas de parité */
-    term.c_cflag &= ~(PARENB | CSIZE);
-    term.c_cflag |= CS8;
+    term.c_cflag &= ~(PARENB | CSIZE);  // pas de parité
+    term.c_cflag |= CS8;   // 8 bits par caractère
+    term.c_cflag |= CREAD; //ignore les signaux de contrôle modem
 
     /* vitesse de la transmission
        Vitesse de communication (version simple, utilisant les

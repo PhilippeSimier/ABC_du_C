@@ -23,8 +23,8 @@ typedef enum {FALSE, TRUE}typeBool;
 #include <sys/file.h>    // flock (fonction pour vérouiller l'accès)
 
 int  OuvrirPort       (const char *device);
-void configurerSerie  (int fd, const int baud,  typeEcho echo  );
-int  recevoirMessage  (int fd, char *message, char fin );
+void configurerSerie  (const int fd, const int baud,  typeEcho echo  );
+int  recevoirMessage  (const int fd, char *message, const char fin );
 void envoyerCaractere (const int fd, const unsigned char c);
 int  envoyerMessage   (const int fd, const char *s);
 void viderBuffer      (const int fd);

@@ -27,7 +27,7 @@ int OuvrirPort(const char *device){
    dans une structure appelée termios et définie dans le fichier <termios.h>
    qu'il nous faut donc inclure. */
 
-void configurerSerie (int fd, const int baud,  typeEcho echo ){
+void configurerSerie (const int fd, const int baud,  typeEcho echo ){
 
     struct termios term;
 
@@ -114,7 +114,7 @@ void configurerSerie (int fd, const int baud,  typeEcho echo ){
 
 
 
-int recevoirMessage(int fd, char *message, char fin ){
+int recevoirMessage(const int fd, char *message, const char fin ){
     int erreur = 0;
     char charactere_recu;
     int nb = 0;

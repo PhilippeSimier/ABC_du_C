@@ -21,7 +21,7 @@ int main(int argc, char** argv) {
     fdSerie = OuvrirPort(device);
     configurerSerie(fdSerie, vitesse, NOECHO);
     viderBuffer(fdSerie);
-    fixerDTR(fdSerie);
+    fixerDTR(fdSerie, FALSE);
 
     printf("%s Vitesse : %s\n", device, obtenirVitesse(fdSerie));
 

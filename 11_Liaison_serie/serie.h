@@ -9,6 +9,8 @@
 #define SERIE_H
 
 typedef enum {NOECHO,ECHO}typeEcho;
+typedef enum {FALSE, TRUE}typeBool;
+
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -31,7 +33,8 @@ void fermerPort       (const int fd);
 int  octetDisponible  (const int fd);
 char *obtenirVitesse  (const int fd);
 int  obtenirDTR       (const int fd);
-void fixerDTR         (const int val);
+void fixerDTR         (const int fd, typeBool level);
+
 
 #endif /* SERIE_H */
 

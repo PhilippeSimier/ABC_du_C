@@ -230,10 +230,19 @@ int obtenirDTR(const int fd) {
     return dtr;
 }
 
-/* Fonction pour définir le niveau
-   de DTR  */
-void fixerDTR(const int fd) {
+/* Fonction pour définir le niveau de DTR  */
+void fixerDTR(const int fd, typeBool level) {
 
-    int iFlags = TIOCM_DTR;
-    ioctl(fd, TIOCMBIC, &iFlags); // Effacer les bits de modem indiqués.
+    int command = TIOCM_DTR;
+
+    if (level){
+        if( -1 == ioctl(fd, TIOCMBIS, &command)){
+            printf("fixerDTR failed on a call ioctl");
+        }
+    }
+    else{
+        if( -1 == ioctl(fd, TIOCMBIC, &command)){
+            printf("fixerDTR failed on a call ioctl");
+        }
+    }
 }

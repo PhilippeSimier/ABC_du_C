@@ -12,7 +12,7 @@ lrwxrwxrwx 1 root root  5 déc.  26 09:03 /dev/serial0 -> ttyS0
 lrwxrwxrwx 1 root root  7 déc.  26 09:03 /dev/serial1 -> ttyAMA0
 
 ```
- Dans la mesure du possible, référez-vous aux ports série via leurs **alias "serial0"**  ou **/dev/serial2**  et votre code devrait fonctionner à la fois sur Raspberry Pi 3 et sur d'autres Raspberry Pi. 
+ Dans la mesure du possible, référez-vous aux ports série via leurs **alias "serial0"**  ou **serial1**  et votre code devrait fonctionner à la fois sur Raspberry Pi 3 et sur d'autres Raspberry Pi. 
  
 ## 2 Interface physique RS232 
 Pour obtenir un port série standard RS232, il est nécessaire d'ajouter une carte hat qui comprend les circuits nécessaires à la conversion de niveaux des signaux électriques.

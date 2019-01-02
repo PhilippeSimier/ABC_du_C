@@ -1,7 +1,9 @@
-/* Programme de test de la liaison série via un adaptateur USB série
-   Vitesse de transmission 115200 bauds avec ECHO
-   Ce programme renvoie le nb de caractères reçus et le message
+/* Programme de test de la liaison série via bluetooth sur raspberry pi
+   Vitesse de transmission 9600 bauds avec ECHO
+   Ce programme se connecte sur rfcomm0
+   et renvoie le nb de caractères reçus et le message
    tant que le message reçu est différent de bye
+
 */
 
 #include <stdio.h>
@@ -13,8 +15,8 @@ int main(int argc, char** argv) {
     int fdSerie;
     char message[1000];
     int nb = 0;
-    int vitesse = 115200;
-    char device[]="/dev/ttyS0";
+    int vitesse = 9600;
+    char device[]="/dev/rfcomm0";
 
     fdSerie = OuvrirPort(device);
     configurerSerie(fdSerie, vitesse, ECHO);
@@ -23,7 +25,7 @@ int main(int argc, char** argv) {
 
     // reception de message avec echo des caractères reçus
     do{
-        nb = recevoirMessage(fdSerie, message,'\r' );
+        nb = recevoirMessage(fdSerie, message,' ' );
         printf("%d caractères reçus : %s\n", nb, message);
         envoyerMessage(fdSerie, "\r\nVotre message :");
         envoyerMessage(fdSerie, message);
@@ -36,3 +38,4 @@ int main(int argc, char** argv) {
     printf("la liaison série %s est fermée\n", device);
     return (EXIT_SUCCESS);
 }
+

@@ -18,7 +18,7 @@ int main(int argc, char** argv) {
     int vitesse = 9600;
     char device[]="/dev/rfcomm0";
 
-    fdSerie = OuvrirPort(device);
+    fdSerie = ouvrirPort(device);
     configurerSerie(fdSerie, vitesse, ECHO);
     viderBuffer(fdSerie);
     printf("%s Vitesse : %s\n", device, obtenirVitesse(fdSerie));

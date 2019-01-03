@@ -1,6 +1,6 @@
 #include "serie.h"
 
-int OuvrirPort(const char *device){
+int ouvrirPort(const char *device){
     int fd = -1;
     // Ouverture du fichier
     fd = open(device, O_RDWR | O_NOCTTY);
@@ -134,6 +134,22 @@ int recevoirMessage(const int fd, char *message, const char fin ){
     return nb;
 }
 
+/* fonction pour lire toutes les données restantes du périphérique
+   elle les renvoie sous forme de tableau d'octets.
+*/
+
+int lireTout(const int fd, char *message){
+
+    int nb = octetDisponible(fd);
+    memset(message, 0, 1000);
+    int erreur = read(fd,message,nb);
+    if (erreur == -1){
+           printf("pb lireTout : %s\n", strerror(errno));
+           nb = -1;
+    }
+    return nb;
+}
+
 void envoyerCaractere (const int fd, const unsigned char c){
     write(fd,&c,1);
 }
@@ -230,7 +246,8 @@ int obtenirDTR(const int fd) {
     return dtr;
 }
 
-/* Fonction pour définir le niveau de DTR  */
+/* Fonction pour définir le niveau de DTR
+   Data terminal ready broche 4         */
 void fixerDTR(const int fd, typeBool level) {
 
     int command = TIOCM_DTR;
@@ -246,3 +263,4 @@ void fixerDTR(const int fd, typeBool level) {
         }
     }
 }
+

@@ -18,18 +18,18 @@ int main(int argc, char** argv) {
     int vitesse = 9600;
     char device[]="/dev/ttyUSB0";
 
-    fdSerie = OuvrirPort(device);
+    fdSerie = ouvrirPort(device);
     configurerSerie(fdSerie, vitesse, NOECHO);
     viderBuffer(fdSerie);
     fixerDTR(fdSerie, FALSE);
 
     printf("%s Vitesse : %s\n", device, obtenirVitesse(fdSerie));
 
-    // reception de message avec echo des caractères reçus
+    // reception de message sans echo des caractères reçus
+    // jusqu'au caractère code 3
     do{
-        nb = recevoirMessage(fdSerie, message,'\n' );
-        printf("%d caractères reçus : %s", nb, message);
-
+        nb = recevoirMessage(fdSerie, message,3);
+        printf("%d : %s", nb, message+1);
     }
     while(1);
     // tant que vrai

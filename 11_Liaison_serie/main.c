@@ -2,6 +2,9 @@
    Vitesse de transmission 115200 bauds avec ECHO
    Ce programme renvoie le nb de caractères reçus et le message
    tant que le message reçu est différent de bye
+
+    gcc main.c serie.c -o main
+
 */
 
 #include <stdio.h>
@@ -16,7 +19,7 @@ int main(int argc, char** argv) {
     int vitesse = 115200;
     char device[]="/dev/ttyS0";
 
-    fdSerie = OuvrirPort(device);
+    fdSerie = ouvrirPort(device);
     configurerSerie(fdSerie, vitesse, ECHO);
     viderBuffer(fdSerie);
     printf("%s Vitesse : %s\n", device, obtenirVitesse(fdSerie));

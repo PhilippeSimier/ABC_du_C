@@ -17,7 +17,7 @@ int main(int argc, char** argv) {
     char message[1000];
     int nb = 0;
     int vitesse = 115200;
-    char device[]="/dev/ttyS0";
+    char device[]="/dev/ttyUSB0";
 
     fdSerie = ouvrirPort(device);
     configurerSerie(fdSerie, vitesse, ECHO);
@@ -27,14 +27,12 @@ int main(int argc, char** argv) {
     // reception de message avec echo des caractères reçus
     do{
         nb = recevoirMessage(fdSerie, message,'\r' );
-        printf("%d caractères reçus : %s\n", nb, message);
-        envoyerMessage(fdSerie, "\r\nVotre message :");
-        envoyerMessage(fdSerie, message);
-        envoyerMessage(fdSerie,"\n");
+        envoyerPrintf(fdSerie, "%d caractères reçus : %s\n", nb, message);
     }
     while(strncmp(message, "bye", 3));
     // tant que le message reçu est différent de bye
 
+    envoyerPrintf(fdSerie, "la liaison série %s est fermée\r\n", device);
     fermerPort(fdSerie);
     printf("la liaison série %s est fermée\n", device);
     return (EXIT_SUCCESS);

@@ -138,16 +138,23 @@ int recevoirMessage(const int fd, char *message, const char fin ){
    elle les renvoie sous forme de tableau d'octets.
 */
 
-int lireTout(const int fd, char *message){
-
+char* lireTout(const int fd){
+    char *message;
     int nb = octetDisponible(fd);
-    memset(message, 0, 1000);
+
+    message = (char*)malloc(nb+1 * sizeof(char));
+    if (message == NULL) // Si l'allocation a échoué
+    {
+        exit(0); // On arrête immédiatement le programme
+    }
+
     int erreur = read(fd,message,nb);
     if (erreur == -1){
            printf("pb lireTout : %s\n", strerror(errno));
            nb = -1;
     }
-    return nb;
+    message[nb] = '\0';
+    return message;
 }
 
 void envoyerCaractere (const int fd, const unsigned char c){
@@ -264,3 +271,14 @@ void fixerDTR(const int fd, typeBool level) {
     }
 }
 
+void envoyerPrintf (const int fd, const char *message, ...)
+{
+  va_list argp ;
+  char buffer [1024] ;
+  int nb;
+  va_start (argp, message) ;
+    vsnprintf (buffer, 1023, message, argp) ;
+  va_end (argp) ;
+
+  nb = envoyerMessage (fd, buffer) ;
+}

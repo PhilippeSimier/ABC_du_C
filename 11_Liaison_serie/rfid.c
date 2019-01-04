@@ -13,7 +13,7 @@
 int main(int argc, char** argv) {
 
     int fdSerie;
-    char message[1000];
+    char *message;
     int nb = 0;
     int vitesse = 9600;
     char device[]="/dev/ttyUSB0";
@@ -28,8 +28,11 @@ int main(int argc, char** argv) {
     // reception de message sans echo des caractères reçus
     // jusqu'au caractère code 3
     do{
-        nb = recevoirMessage(fdSerie, message,3);
-        printf("%d : %s", nb, message+1);
+        //nb = recevoirMessage(fdSerie, message,3);
+        message = lireTout(fdSerie);
+        printf("%s", message);
+        free(message);
+
     }
     while(1);
     // tant que vrai

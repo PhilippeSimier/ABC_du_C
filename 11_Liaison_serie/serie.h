@@ -21,13 +21,16 @@ typedef enum {FALSE, TRUE}typeBool;
 #include <termios.h>   // structure pour configuration serie
 #include <sys/ioctl.h>   // fonctions pour accéder au driver
 #include <sys/file.h>    // flock (fonction pour vérouiller l'accès)
+#include <stdarg.h>      // macro va_start & va_end
+
 
 int  ouvrirPort       (const char *device);
 void configurerSerie  (const int fd, const int baud,  typeEcho echo  );
 int  recevoirMessage  (const int fd, char *message, const char fin );
-int  lireTout         (const int fd, char *message);
+char* lireTout        (const int fd);
 void envoyerCaractere (const int fd, const unsigned char c);
 int  envoyerMessage   (const int fd, const char *s);
+void envoyerPrintf    (const int fd, const char *message, ...);
 void viderBuffer      (const int fd);
 void fermerPort       (const int fd);
 

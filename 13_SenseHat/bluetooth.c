@@ -19,40 +19,46 @@ int main(int argc, char** argv) {
     int nb = 0;
     int vitesse = 9600;
     char device[]="/dev/rfcomm0";
-    int x = 0;
-    int y = 0;
+    int x = 4;
+    int y = 4;
 
     InitialiserLeds();
 
-    fdSerie = OuvrirPort(device);
-    configurerSerie(fdSerie, vitesse, ECHO);
+    fdSerie = ouvrirPort(device);
+    configurerSerie(fdSerie, vitesse, NOECHO);
     viderBuffer(fdSerie);
-    printf("%s Vitesse : %s\n", device, obtenirVitesse(fdSerie));
+    envoyerPrintf(fdSerie, "%s -> vitesse : %s\n", device, obtenirVitesse(fdSerie));
 
+    // Blink d'une led sur senseHat
     for (int i=0; i<10; i++){
-	Allumer(x, y, VERT);
-	usleep(100000);
 	Allumer(x, y, NOIR);
 	usleep(100000);
+	Allumer(x, y, VERT);
+	usleep(100000);
     }
-    Allumer(x, y, VERT);
+
+
     do{
-        nb = recevoirMessage(fdSerie, message,' ' );
+        nb = recevoirMessage(fdSerie, message, ' ');
         if (!strncmp(message, "avant", 5)){
 	    Allumer(x, y++, NOIR);
             Allumer(x, y, VERT);
+            envoyerPrintf(fdSerie, "x=%d y=%d\r\n", x, y);
         }
 	if (!strncmp(message, "arriere", 7)){
             Allumer(x, y--, NOIR);
             Allumer(x, y, VERT);
+	    envoyerPrintf(fdSerie, "x=%d y=%d\r\n", x, y);
         }
         if (!strncmp(message, "gauche", 6)){
             Allumer(x--, y, NOIR);
             Allumer(x, y, VERT);
+            envoyerPrintf(fdSerie, "x=%d y=%d\r\n", x, y);
         }
         if (!strncmp(message, "droite", 6)){
             Allumer(x++, y, NOIR);
             Allumer(x, y, VERT);
+            envoyerPrintf(fdSerie, "x=%d y=%d\r\n", x, y);
         }
     }
     while(strncmp(message, "bye", 3));

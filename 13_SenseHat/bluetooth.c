@@ -11,11 +11,11 @@
 #include <stdlib.h>
 #include "serie.h"
 #include "sensehat.h"
-
+#define MAX 1000
 int main(int argc, char** argv) {
 
     int fdSerie;
-    char message[1000];
+    char message[MAX];
     int nb = 0;
     int vitesse = 9600;
     char device[]="/dev/rfcomm0";
@@ -40,6 +40,7 @@ int main(int argc, char** argv) {
 
     do{
         nb = recevoirMessage(fdSerie, message, ' ');
+        viderBuffer(fdSerie);
         if (!strncmp(message, "avant", 5)){
 	    Allumer(x, y++, NOIR);
             Allumer(x, y, VERT);

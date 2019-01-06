@@ -31,12 +31,14 @@
 #include <termios.h>
 #include <linux/input.h>
 
-void Allumer(int x, int y, uint16_t couleur);
+
+
+void     Allumer(unsigned int x, unsigned int y, uint16_t couleur);
 uint16_t ObtenirPixel(int x, int y);
-void InitialiserLeds();
-void Effacer();
-void AfficherMotif(uint16_t motif[][8]);
-void InitialiserJoystick();
+void     InitialiserLeds();
+void     Effacer();
+void     AfficherMotif(uint16_t motif[][8]);
+void     InitialiserJoystick();
 int ScannerJoystick();
 
 #endif

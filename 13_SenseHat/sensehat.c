@@ -1,15 +1,16 @@
 /* Librairie SenseHat pour la gestion des Leds et du Joystick
-    Auteur : Philippe CRUCHET 2015
+    Auteurs : Philippe CRUCHET 2015
+            : Philippe SIMIER  2018
 */
 
 #include "sensehat.h"
-enum boolean
-{
-    false,
-    true
-};
 
-/* pour les leds */
+typedef enum{
+    FALSE,TRUE
+}boolean;
+
+
+/* Fonctions pour la gestion des leds */
 struct fb_t {
 	uint16_t pixel[8][8];
 };
@@ -53,11 +54,9 @@ static int open_fbdev(const char *dev_name)
 	return fd;
 }
 
-void Allumer(int x, int y, uint16_t couleur)
+void Allumer(unsigned int x, unsigned  int y, uint16_t couleur)
 {
-    if ( x < 0) x = -x;
-    if ( y < 0) y = -y;
-    fb->pixel[x%8][y%8]=couleur;
+    fb->pixel[x%8][y%8] = couleur;
 }
 
 
@@ -68,23 +67,21 @@ void InitialiserLeds()
     fbfd = open_fbdev("RPi-Sense FB");
 	if (fbfd > 0)
 	{
-        fb = mmap(0, 128, PROT_READ | PROT_WRITE, MAP_SHARED, fbfd, 0);
-        if (!fb)
-        {
-            printf("Failed to mmap.\n");
-            exit(EXIT_FAILURE);
-        }
+            fb = mmap(0, 128, PROT_READ | PROT_WRITE, MAP_SHARED, fbfd, 0);
+            if (!fb)
+            {
+                printf("Failed to mmap.\n");
+                exit(EXIT_FAILURE);
+            }
 	}
 	else
 	{
-        printf("Error: cannot open framebuffer device.\n");
-		close(fbfd);
-        exit(EXIT_FAILURE);
+            printf("Error: cannot open framebuffer device.\n");
+	    close(fbfd);
+            exit(EXIT_FAILURE);
 
 	}
-
 	memset(fb, 0, 128);
-
 }
 
 
@@ -121,7 +118,7 @@ static int open_evdev(const char *dev_name)
 	struct dirent **namelist;
 	int i, ndev;
 	int fd = -1;
-	int sortie = false;
+	int sortie = FALSE;
 
 	ndev = scandir(DEV_INPUT_EVENT, &namelist, is_event_device, versionsort);
 	if (ndev <= 0)
@@ -131,25 +128,25 @@ static int open_evdev(const char *dev_name)
     do
     {
         char fname[64];
-		char name[256];
+	char name[256];
 
-		snprintf(fname, sizeof(fname),
-			 "%s/%s", DEV_INPUT_EVENT, namelist[i++]->d_name);
+	snprintf(fname, sizeof(fname), "%s/%s", DEV_INPUT_EVENT, namelist[i++]->d_name);
 
-		fd = open(fname, O_RDONLY );
-		if (fd < 0)
-			exit (EXIT_FAILURE);
+	fd = open(fname, O_RDONLY );
+	if (fd < 0)
+		exit (EXIT_FAILURE);
 
-		ioctl(fd, EVIOCGNAME(sizeof(name)), name);
+	ioctl(fd, EVIOCGNAME(sizeof(name)), name);
 
-		if (strcmp(dev_name, name) != 0)
+	if (strcmp(dev_name, name) != 0)
             close(fd);
-        else sortie = true;
-    } while( i<ndev && sortie != true);
+        else sortie = TRUE;
+    }
+    while( i<ndev && sortie != TRUE);
 
-	for (i = 0; i < ndev; i++)
-		free(namelist[i]);
-	return fd;
+    for (i = 0; i < ndev; i++)
+	free(namelist[i]);
+    return fd;
 }
 
 uint16_t handle_events(int evfd)

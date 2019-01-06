@@ -19,8 +19,8 @@ int main(int argc, char** argv) {
     int nb = 0;
     int vitesse = 9600;
     char device[]="/dev/rfcomm0";
-    int x = 4;
-    int y = 4;
+    unsigned int x = 4;
+    unsigned int y = 4;
 
     InitialiserLeds();
 

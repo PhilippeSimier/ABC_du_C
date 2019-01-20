@@ -17,8 +17,8 @@ La syntaxe de base pour définir un pointeur est la suivante:
 ```c
 	int *ptr = NULL;
 ```
-l'étoile devant p sert juste à indiquer qu'on veut créer un pointeur . 
-p est un pointeur qui pointe vers un objet de type int. Il convient  de veiller à ce que l'adresse sur laquelle les pointeurs pointent soit valides; c'est pourquoi il faut initialiser explicitement un pointeur sur la valeur de pointeur nulle (NULL).
+l'étoile devant ptr sert juste à indiquer qu'on veut créer un pointeur . 
+ptr est un pointeur qui pointe vers un objet de type int. Il convient  de veiller à ce que l'adresse sur laquelle les pointeurs pointent soit valides; c'est pourquoi il faut initialiser explicitement un pointeur sur la valeur de pointeur nulle (NULL).
  
 ## 4 Affectation de l'adresse d'une variable à un pointeur
 ```c

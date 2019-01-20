@@ -38,22 +38,36 @@ printf( "%s", user_name );
 | %x | int  | un entier signé représenté en hexadécimal (a,b,c,d,e,f) |
 | %X | int  | un entier signé représenté en hexadécimal (A,B,C,D,E,F) |
 | %u | unsigned int | un entier non signé|
-| %f | float| un flottant simple précision |
-| "%lf | double | un flottant en double précision | 
+| %zu | size_t | résultat de l'opérateur sizeof |
+| %f | float| un flottant simple précision en notation virgule fixe|
+| %lf | double | un flottant en double précision en notation virgule fixe | 
+| %e | double | un double précision représenté en notation mantisse exposant (la lettre **e** introduit l'exposant) |
 | %p | pointeur| une adresse de variable   |
 | %s | char * | une chaîne de caractères |
 
-#### Les spécification de largeur
+#### Le champ de largeur
 
-Dans une spécification de conversion, le champ  de largeur peut apparaître après n’importe quel caractère d’indicateur. L’argument  est un entier décimal non négatif qui contrôle le nombre minimal de caractères qui sont générés. Si le nombre de caractères dans la valeur de sortie est inférieur à la longueur spécifiée, des espaces sont ajoutés à gauche ou à droite des valeurs, selon que l’indicateur d’alignement à gauche (-) est spécifié ou non, jusqu’à ce que la largeur minimale soit atteinte.
+Le champ Largeur spécifie un nombre minimal de caractères à produire et est généralement utilisé pour remplir les champs de largeur fixe dans une sortie tabulée. Le champ  de largeur peut apparaître avant n’importe quel caractère d’indicateur. C'est un entier décimal  qui contrôle le nombre minimal de caractères qui sont générés. Si le nombre de caractères dans la valeur de sortie est inférieur à la longueur spécifiée, des espaces sont ajoutés à gauche ou à droite des valeurs, selon que l’indicateur d’alignement à gauche (-) est spécifié ou non, jusqu’à ce que la largeur minimale soit atteinte.
 
 Exemple:
 ```c
-  printf("%2d\n", 3);     // affiche  3 sur deux caractères
-  printf("%.2d\n", 3);    // affiche 03  (deux caractères)
-  printf("%.4X\n", 255);  // affiche 00FF (quatre caractères)
-  printf("%10s\n", "nom"); // affiche     nom (10 caractères)
+  printf("%2d\n", 3);        // affiche  3 sur deux caractères
+  printf("%10s\n", "nom");   // affiche     nom (10 caractères)
+  printf("%04X\n",255);      // affiche  00FF  
 ```
+#### Le champ de précision
+
+Le champ **Précision** spécifie généralement une limite maximale pour la sortie, en fonction du type de formatage utilisé. Pour les types numériques à virgule flottante, il spécifie le nombre de chiffres à droite de la virgule décimale auquel la sortie doit être arrondie.
+
+Exemple:
+```c
+  printf("%.2d\n", 3);       // affiche 03  (deux caractères)
+  printf("%.4X\n", 255);     // affiche 00FF (quatre caractères)
+  printf("%.2e\n", 0.0015);  // affiche 1.50e-03
+  printf("%.4s\n","philippe"); // affiche phil (quatre caractères)
+```
+
+
 ## 3 Lecture au clavier
 La fonction **getchar()** permet de lire un caractère à partir du flux d'entrée standard (stdin).
 la fonction **fgets()** lit au plus size - 1 caractères depuis le flux spécifié et les place dans

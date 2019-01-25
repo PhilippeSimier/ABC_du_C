@@ -17,6 +17,17 @@ if(choix == 'y'){   // affiche Vous avez choisi OUI
 ```
 Les instructions au conditionnel doivent former un bloc. Un bloc  est formé de plusieurs instructions entre accolades { } ou d'une seule instructions sans accolade.
 
+## Les comparateurs
+|  Symbole | Signification |
+|----------|---------------|
+|  `==` | égalité |
+| `>`   | est supérieur à |
+| `<`   | est inférieur à |
+| `>=`  | est supérieur ou égal |
+|  !=   | est inférieur ou égal |
+
+## Condition si - alors - sinon
+
 
 ## Changelog
 

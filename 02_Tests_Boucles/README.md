@@ -35,14 +35,15 @@ else
 
 ## 4 Les conditions booléennes
 Les conditions que l'on peut mettre dans une instruction if sont des conditions booléennes. Un exemple de condition booléenne est un test de comparaison entre deux expressions par les opérateurs de comparaison.
+ 
  |  Symbole | Signification                           |
- |----------|-----------------------------------------|
- |  `x == y` | est vérifier si x est égale à y |
- | `x > y`   | est vérifier si x est supérieur à y |
- | `x < y`   | est vérifier si x est inférieur à y|
- | `x >= y`  | est vérifier si x supérieur ou égal y |
- | `x <= y`  | est vérifier si x inférieur ou égal y |
- |  `x != y`  | est vérifier si x est différent de y |
+|----------|-----------------------------------------|
+|  `x == y` | est vérifier si x est égale à y |
+| `x > y`   | est vérifier si x est supérieur à y |
+| `x < y`   | est vérifier si x est inférieur à y|
+| `x >= y`  | est vérifier si x supérieur ou égal y |
+| `x <= y`  | est vérifier si x inférieur ou égal y |
+|  `x != y`  | est vérifier si x est différent de y |
 
 Il faut faire bien attention à ne pas confondre l'opérateur **==** avec le simple **=**, car les deux ont des rôles très différents :
 

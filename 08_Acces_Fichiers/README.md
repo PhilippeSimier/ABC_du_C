@@ -20,6 +20,7 @@ Avant qu'on puisse lire un fichier ou écrire dedans, il faut que le fichier ait
 ```
  La fonction **fopen** prend deux arguments, le premier est le nom de fichier, ou plus exactement le chemin vers le fichier dans l'arborescence des répertoires. dans le cas d'un chemin relatif, le chemin part du répertoire de travail, c'est à dire là ou est exécuté le programme.  dans le cas du chemin absolu, le chemin part de la racine de l'arborescence des répertoires (la partition **/** sous linux).
  le deuxième argument est le mode (lecture, écriture, ajout)
+ 
  | mode | type | désignation |
  |------|------|-------------|
  | "r"  | lecture | Le fichier est ouvert au début en lecture seule

@@ -1,0 +1,6 @@
+Lancer moteur
+Arrêter moteur
+Modifier vitesse
+Tourner à gauche
+Tourner à droite
+Quitter

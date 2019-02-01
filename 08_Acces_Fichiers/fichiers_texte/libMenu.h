@@ -1,12 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
-/* 
- * File:   newfile.h
- * Author: nderouelle
+/*
+ * File:   libMenu.h
+ * Author: psimier
  *
  * Created on 11 décembre 2018, 10:36
  */
@@ -21,8 +16,19 @@
 
 #define NB_CAR 50
 
-int lireFichierMenu (char *nomFichier, char *options[]);
-void ecrireFichierConfig (char *nomFichier, char *config[], int nbItem);
+/**
+
+@brief : Lecture d'un fichier texte dans un tableau de chaîne de caractères
+
+*/
+int  lireFichier (char *nomFichier, char *options[]);
+
+/**
+
+@brief : Ecriture d'un tableau de chaine de caratères dans un fichier
+*/
+
+void ecrireFichier (char *nomFichier, char *config[], int nbItem);
 
 
 #endif /* NEWFILE_H */

@@ -2,12 +2,14 @@
 
 ## 1 Introduction 
 
-Dans un ordinateur il y a principalement deux sortes de mémoire:  la mémoire centrale et la mémoire non volatile pour mémoriser des données de manière permanente. (Disque ou clef USB). 
-Un fichier est une série de données stockées sur un périphérique de stockage. 
+Dans un ordinateur il y a principalement deux sortes de mémoire:  la mémoire centrale et la mémoire non volatile pour mémoriser des données de manière permanente. (Disque carte SD ou clef USB). 
+Un fichier est une série de données stockées sur un périphérique de stockage.
+ 
 Un **fichier texte** est un fichier qui contient du texte (une suite de caractères codés en ASCII ou UTF8). Lorsqu'un fichier texte contient des nombres, ces nombres sont codés sous forme de texte à l'aide de caractères '1', '2', etc.  On peut visualiser un fichier avec un éditeur de texte comme nano. 
+
 Un **fichier binaire** contient du code binaire. On ne peut pas visualiser son contenu avec un éditeur de texte. Lorsqu'une variable est écrite dans un fichier binaire, on écrit directement la valeur exacte de la variable telle qu'elle est codée en binaire en mémoire.  Cette manière de stocker est plus précise et plus compacte pour coder des nombres. 
 
-## 2 Ouverture
+## 2 Ouverture d'un fichier
 
 Avant qu'on puisse lire un fichier ou écrire dedans, il faut que le fichier ait été ouvert par la fonction fopen. Cette fonction va lier un nom externe de fichier avec une variable interne, un pointeur sur fichier FILE* qui devra être utilisé à chaque fois que l'on voudra faire ultérieurement des lectures ou des écritures sur ce fichier. 
 ```c
@@ -35,10 +37,69 @@ la fonction fopen retourne un pointeur NULL en cas d'erreur d'ouverture du fichi
 ## 3 Fermeture
 Après avoir lu ou écrit des données dans un fichier, il faut le refermer en appelant la fonction **fclose()**. Elle prend en paramètre le pointeur de fichier et ferme le fichier. l'appel à la fonction fclose vide le buffer où les données sont stokées temporairement an attendant leur transfert définitif.
 
-## 4 Lire et Ecrire des données formatées
-Pour lire des données numériques (des nombres) ou autres dans un fichier texte on peut utiliser la fonction fscanf() qui est analogue scanf(). La fonction fscanf() prend pour premier paramètre le pointeur de fichier. 
+## 4 Lire et Ecrire des chaînes de caractères
 
-Pour écrire des données numériques (des nombres) ou autres dans un fichier texte on peut utiliser la fonction fprintf()  qui est analogue printf(). La fonction fprintf() prend pour premier paramètre le pointeur de fichier. 
+La bibliothèque standard fournit la fonction **fgets** pour lire la ligne suivante dans le fichier d'entrée. la fonction fgets renvoie **NULL** à la fin du fichier.
+
+la fonction **fputs** écrit une chaîne de caractères dans un fichier ouvert en écriture.
+
+exemple
+```c
+#define NB_CAR 50
+
+FILE *fr;
+FILE *fW;
+char ligne[NB_CAR];
+
+if((fr = fopen("input.txt", "r")) == NULL){
+        perror("Erreur Ouverture du fichier");
+        exit(errno);
+    }
+if((fw = fopen("output.txt", "w")) == NULL){
+        perror("Erreur Ouverture du fichier");
+        exit(errno);
+    } 
+
+while (fgets(ligne, NB_CAR, fr) != NULL){
+    fputs(ligne, fw);
+}    
+```
+
+
+## 5 Lire et Ecrire des données formatées 
+
+Pour lire des données numériques (des nombres) ou autres dans un fichier texte on peut utiliser la fonction **fscanf()** qui est analogue scanf(). La fonction **fscanf()** prend pour premier paramètre le pointeur de fichier. 
+
+
+Pour écrire des données numériques (des nombres) ou autres dans un fichier texte on peut utiliser la fonction **fprintf()**  qui est analogue printf(). La fonction **fprintf()** prend pour premier paramètre le pointeur de fichier. 
+ 
+ Exemple
+ On peut mettre des appels de fonctions comme fscanf dans une condition. içi **fscanf** retourne 1 en cas de succès. Notons aussi qu'à chaque lecture par **fscanf**, le pointeur de fichier passe à la suite dans le fichier. le pointeur avance automatiquement dans le fichier lorsqu'on effectue une lecture.
+```c
+// lecture d'un entier dans fichierLecture.txt
+// ecriture d'un entier dans fichierEcriture.txt
+int n;
+FILE *fpr, *fpw;
+
+fpr = fopen("fichierLecture.txt", "r");
+fpw = fopen("fichierEcriture.txt", "w");
+while (fscanf(fpr, "%d", &n) == 1){
+     fprintf(fpw, "%d ", 10*n);
+    }
+fclose(fpr);
+fclose(fpw);    
+    	
+```
+
+## 6 Lire et Ecrire des données dans un fichier binaire
+Pour lire dans un fichier binaire, on lit en général dans le fichier les éléments d'un tableau, chaque éléments du tableau est appelé **bloc**.
+La fonction de lecture **fread** prend en paramètre le tableau, la taille de chaque bloc, le nombre de bloc à lire et le pointeur de fichier. La fonction fread transfère les données binaires vers le tableau. La fonction fread retourne le nombre d'éléments effectivement lus.
+
+Pour écrire dans un fichier binaire, on utilise la fonction **fwrite** qui transfère les données de la mémoire centrale vers un fichier binaire.
+La fonction **fwrite** prend en paramètre le tableau, la taille de chaque bloc, le nombre de bloc et le pointeur de fichier.
+ chaque appel à fread ou fwrite fait avancer la position courante du nombre d'octets lus ou écrits.
+
+La fonction **fseek** permet de se positionner dans un fichier, en modifiant la position courante pour pouvoir lire ou écrire à l'endroit souhaité.
 
 ## Changelog
 

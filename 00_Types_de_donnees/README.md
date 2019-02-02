@@ -18,20 +18,20 @@ ou bien avec l'initialisation (on donne à la variable une valeur initiale)
 ## 3 Les entiers
 Il y a cinq types de variables entières (« integer » en anglais) : **char , short , int , long , long long**. Les types entiers peuvent prendre les modificateurs **signed** et **unsigned** qui permettent respectivement d'obtenir un type signé ou non signé.
 
- | type | taille | borne inférieure | borne supérieure |
- |------|--------|---------------------|---------------|
- | signed char |	8 bits |	-127  	  |	+127	  |	
- |	unsigned char |	 8 bits  |		0		 |	+255 |	
- |	short	 |	16 bits	 |	-32 767	  |		+32 767	|
- |	unsigned short  | 16 bits |		0 |		+65 535	|
- |	int	 |	≥ 16 bits  |	-32 767	|	+32 767	|
- |	unsigned int |	≥ 16 bits |		0 |	0	|+65 535	|
- |	long |	≥ 32 bits |	-2 147 483 647	 |	+2 147 483 647 |
- |	unsigned long |	≥ 32 bits |	0  | +4 294 967 295	|
- |	long long |	≥ 64 bits |	-9 223 372 036 854 775 807  |		+9 223 372 036 854 775 807|
- |	unsigned long long | ≥ 64 bits |	0 |		+18 446 744 073 709 551 615	|
+ | type          | taille | borne inférieure | borne supérieure |
+ |---------------|--------|------------------|------------------|
+ | signed char   | 8 bits |-127  | +127 |	
+ | unsigned char | 8 bits | 0	 | +255 |	
+ | short	 | 16 bits  |-32 767 | +32 767 |
+ | unsigned short  | 16 bits |	0 | +65 535 |
+ | int	         | ≥ 16 bits |	-32 767	| +32 767 |
+ | unsigned int  | ≥ 16 bits |	0 | 0 | +65 535	|
+ | long          | ≥ 32 bits |	-2 147 483 647 | +2 147 483 647 |
+ | unsigned long | ≥ 32 bits |	0  | +4 294 967 295 |
+ | long long     | ≥ 64 bits |	-9 223 372 036 854 775 807 | +9 223 372 036 854 775 807 |
+ | unsigned long long | ≥ 64 bits | 0 |	+18 446 744 073 709 551 615 |
  
-*Remarque* : Les tailles dépende du système utilisé.
+*Remarque* : Les tailles dépendent du système utilisé.
 
 ## 4 Les nombres réelles
 

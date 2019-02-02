@@ -10,18 +10,21 @@
 
 int main(){
     char c;
+    short s;
     int  i;
+    long l;
+    long long ll;
+
+    float f;
     double d;
-    char tabchar[3];
-    int tabint[3];
-    double tabdouble[3];
 
-    printf("Taille d'un char   :%zu\n", sizeof(c));
-    printf("Taille d'un int    :%zu\n", sizeof(int));
-    printf("Taille d'un double :%zu\n\n", sizeof(double));
+    printf("Taille d'un char      : %zu octet(s)\n", sizeof(c));
+    printf("Taille d'un short     : %zu octet(s)\n", sizeof(s));
+    printf("Taille d'un int       : %zu octet(s)\n", sizeof(i));
+    printf("Taille d'un long      : %zu octet(s)\n", sizeof(l));
+    printf("Taille d'un long long : %zu octet(s)\n", sizeof(ll));
+    printf("Taille d'un float     : %zu octet(s)\n", sizeof(f));
+    printf("Taille d'un double    : %zu octet(s)\n", sizeof(d));
 
-    printf("Taille d'un tableau de 3 char   :%zu\n", sizeof(tabchar));
-    printf("Taille d'un tableau de 3 int    :%zu\n", sizeof(tabint));
-    printf("Taille d'un tableau de 3 double :%zu\n", sizeof(tabdouble));
     return 0;
 }

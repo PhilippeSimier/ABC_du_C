@@ -15,7 +15,7 @@ Déclare un tableau de N éléments, les éléments étant de type int. N doit �
 **int tab[N]** réserve une zone mémoire suffisante pour stocker 50 variables de type int, désignées par tab[0], tab[1]..., tab[49]
 Lorsqu'un tableau est créé, il prend un espace contigu en mémoire, autrement dit, les cases sont les unes à la suite des autres. Toutes les cases d'un tableau sont du même type. Ainsi, un tableau de **int** contiendra uniquement des **int**, et pas autre chose.
 
-##3 Accès aux éléments
+## 3 Accès aux éléments
 
 Si vous écrivez juste **tableau**, vous obtenez un pointeur sur la première case du tableau. Les éléments d’un tableaux sont numérotés par des indices, 0,1,2,3,4,5…
 
@@ -27,7 +27,7 @@ Si vous écrivez juste **tableau**, vous obtenez un pointeur sur la première ca
     tableau[5] = 18;
 ```
 
-##4 Parcourir un tableau
+## 4 Parcourir un tableau
 
 Les boucles for sont très pratiques pour parcourir un tableau.
 ```c
@@ -36,7 +36,7 @@ for (int i = 0 ; i < N ; i++)
     printf("%d\n", tableau[i]);
 }
 ```
-##3 Initialiser un tableau
+## 5 Initialiser un tableau
 Il est possible d'initialiser directement les tableaux lors de leur déclaration :
 ```c
     int tableau[5] = { 1 , 5 , 45 , 3 , 9 };
@@ -50,7 +50,7 @@ Si on déclare un tableau, mais qu'on l'initialise avec moins d'éléments qu'il
 
 ## Changelog
 
- **24/01/2019 :** Ajout du README . 
+ **04/02/2019 :** Ajout du README . 
  
  
 > **Notes :**

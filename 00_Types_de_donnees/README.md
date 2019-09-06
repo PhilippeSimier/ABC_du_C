@@ -25,7 +25,7 @@ Il y a cinq types de variables entières (« integer » en anglais) : **char , s
  | short	 | 16 bits  |-32 768 | +32 767 |
  | unsigned short  | 16 bits |	0 | +65 535 |
  | int	         | ≥ 16 bits |	-32 768	| +32 767 |
- | unsigned int  | ≥ 16 bits |	0 | 0 | +65 535	|
+ | unsigned int  | ≥ 16 bits |	0 | +65 535	|
  | long          | ≥ 32 bits |	-2 147 483 648 | +2 147 483 647 |
  | unsigned long | ≥ 32 bits |	0  | +4 294 967 295 |
  | long long     | ≥ 64 bits |	-9 223 372 036 854 775 808 | +9 223 372 036 854 775 807 |

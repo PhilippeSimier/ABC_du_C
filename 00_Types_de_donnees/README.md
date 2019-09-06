@@ -20,15 +20,15 @@ Il y a cinq types de variables entières (« integer » en anglais) : **char , s
 
  | type          | taille | borne inférieure | borne supérieure |
  |---------------|--------|------------------|------------------|
- | signed char   | 8 bits |-127  | +127 |	
+ | signed char   | 8 bits |-128  | +127 |	
  | unsigned char | 8 bits | 0	 | +255 |	
- | short	 | 16 bits  |-32 767 | +32 767 |
+ | short	 | 16 bits  |-32 768 | +32 767 |
  | unsigned short  | 16 bits |	0 | +65 535 |
- | int	         | ≥ 16 bits |	-32 767	| +32 767 |
+ | int	         | ≥ 16 bits |	-32 768	| +32 767 |
  | unsigned int  | ≥ 16 bits |	0 | 0 | +65 535	|
- | long          | ≥ 32 bits |	-2 147 483 647 | +2 147 483 647 |
+ | long          | ≥ 32 bits |	-2 147 483 648 | +2 147 483 647 |
  | unsigned long | ≥ 32 bits |	0  | +4 294 967 295 |
- | long long     | ≥ 64 bits |	-9 223 372 036 854 775 807 | +9 223 372 036 854 775 807 |
+ | long long     | ≥ 64 bits |	-9 223 372 036 854 775 808 | +9 223 372 036 854 775 807 |
  | unsigned long long | ≥ 64 bits | 0 |	+18 446 744 073 709 551 615 |
  
 *Remarque* : Les tailles dépendent du système utilisé.

@@ -32,8 +32,8 @@ int main(int argc, char** argv) {
 	    system("clear");
 	    printf("Trame GPGGA  \n");
             printf("Time UTC  : %s\n", champ[1]);  // Affichage du temps UTC
-	    printf("Latitude  : %s %s\n", champ[2], champ[3]);
-	    printf("Longitude : %s %s\n", champ[4], champ[5]);
+	    printf("Latitude  : %f °\n", convertirDegreDeci(champ[2], champ[3]));
+	    printf("Longitude : %f °\n", convertirDegreDeci(champ[4], champ[5]));
 	    printf("Nb satellite : %s\n", champ[7]);
             printf("Altitude     : %s %s\n", champ[9],champ[10]);
 

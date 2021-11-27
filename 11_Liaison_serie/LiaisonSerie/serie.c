@@ -15,7 +15,6 @@ int ouvrirPort(char *device) {
         printf("%s ouvert\n", device);
     }
     return port;
-    setvbuf(port, NULL, _IONBF, 0); // disabling buffering?
 }
 
 void fermerPort(const int fd) {
@@ -139,7 +138,8 @@ int recevoirMessage(const int fd, char *message, const char fin) {
         charactere_recu = *message;
         message++; // On passe au caractère suivant
         nb++;
-        printf("%c", charactere_recu);
+        if (charactere_recu != fin)
+            printf("%c", charactere_recu);
     }    
     while (charactere_recu != fin && erreur != -1);
     *message = '\0'; // fin de chaine de caractère
@@ -147,7 +147,7 @@ int recevoirMessage(const int fd, char *message, const char fin) {
 }
 
 void envoyerCaractere (const int fd, const unsigned char c){
-     write(fd,&c,1);
+     write(fd, &c, 1);
      
 }
 

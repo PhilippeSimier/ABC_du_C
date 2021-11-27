@@ -13,14 +13,13 @@ int main(int argc, char** argv) {
 
     do {
         printf("\nEntrer une lettre : \n");
-        caractere = getchar();
-        cr = getchar();
-        if (caractere != '\n'){
-            //printf("%c\n", caractere);
+       
+        scanf(" %c", &caractere); 
             
-            envoyerCaractere(serial, caractere);
-        }
+        envoyerCaractere(serial, caractere);
         nb = recevoirMessage(serial, message, 0x04); //le message reçu se termine par EOT
+
+
 
     } while (caractere != 'z');
 

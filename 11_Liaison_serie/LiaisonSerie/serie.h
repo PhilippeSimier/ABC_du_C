@@ -11,6 +11,7 @@
 #include <termios.h>   // structure pour configuration serie
 #include <string.h> 
 #include <unistd.h>
+#include <sys/ioctl.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -21,12 +22,15 @@ extern "C" {
      */
     int ouvrirPort(char *device);
     void fermerPort(const int fd);
-    
-    void configurerSerie  (const int fd, const int baud);
-    int  recevoirMessage  (const int fd, char *message, const char fin );
+
+    void configurerSerie(const int fd, const int baud);
+    int recevoirMessage(const int fd, char *message, const char fin, int size);
     int envoyerMessage(int fd, char *message);
-    void envoyerCaractere (const int fd, const unsigned char c);
-    
+    void envoyerCaractere(const int fd, const unsigned char c);
+    /* Fonction pour obtenir le nombre d’octets
+   immédiatement disponibles pour la lecture. */
+    int octetDisponible(const int fd);
+
 
 
 #ifdef __cplusplus

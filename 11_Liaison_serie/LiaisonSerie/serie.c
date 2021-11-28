@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 #include "serie.h"
 
 int ouvrirPort(char *device) {
@@ -106,7 +101,6 @@ void configurerSerie(const int fd, const int baud) {
             break;
         case 230400: myBaud = B230400;
             break;
-
         default:
             myBaud = B9600;
     }
@@ -122,12 +116,12 @@ void configurerSerie(const int fd, const int baud) {
 
 }
 
-int recevoirMessage(const int fd, char *message, const char fin) {
-    
+int recevoirMessage(const int fd, char *message, const char fin, int size) {
+
     int erreur = 0;
     char charactere_recu;
     int nb = 0;
-    
+
     do {
         erreur = read(fd, message, 1);
 
@@ -136,18 +130,31 @@ int recevoirMessage(const int fd, char *message, const char fin) {
             nb = -1;
         }
         charactere_recu = *message;
-        message++; // On passe au caractère suivant
-        nb++;
         if (charactere_recu != fin)
             printf("%c", charactere_recu);
-    }    
-    while (charactere_recu != fin && erreur != -1);
+
+        message++; // On passe au caractère suivant
+        nb++;
+
+    } while (charactere_recu != fin && erreur != -1 && nb < size);
+
     *message = '\0'; // fin de chaine de caractère
     return nb;
 }
 
-void envoyerCaractere (const int fd, const unsigned char c){
-     write(fd, &c, 1);
-     
+void envoyerCaractere(const int fd, const unsigned char c) {
+    write(fd, &c, 1);
+
+}
+
+/* Fonction pour obtenir le nombre d’octets
+   immédiatement disponibles pour la lecture. */
+int octetDisponible(const int fd) {
+    int result;
+
+    if (ioctl(fd, FIONREAD, &result) == -1)
+        result = -1;
+
+    return result;
 }
 

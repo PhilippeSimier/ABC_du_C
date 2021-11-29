@@ -13,13 +13,13 @@ int main(int argc, char** argv) {
 
     do {
 
-        if (octetDisponible(serial) == 0) {
-            printf("\nEntrer une  lettre : ");
-            scanf(" %c", &caractere);
-            envoyerCaractere(serial, caractere);
-        }
-        nb = recevoirMessage(serial, message, 0x04 , sizeof (message)); //le message reçu se termine par EOT
-        usleep(10000);
+
+        printf("\nEntrer une  lettre : ");
+        scanf(" %c", &caractere);
+        envoyerCaractere(serial, caractere);
+
+        nb = recevoirMessage(serial, message, 0x04, sizeof (message)); //le message reçu se termine par EOT
+        usleep(100000);
     } while (caractere != 'z');
 
     fermerPort(serial);

@@ -13,7 +13,7 @@ int main(int argc, char** argv) {
     char crc[4];
 
     int serial = ouvrirPort("/dev/ttyUSB0");
-    configurerSerie(serial, 9600);
+    configurerSerie(serial, 4800);
     // Envoyer le caratère n pour obtenir des trames GPS simulées
     envoyerCaractere(serial, 'n');
     

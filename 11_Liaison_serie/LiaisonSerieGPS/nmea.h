@@ -8,10 +8,11 @@
 #include <stddef.h>
 
 
-    int   decouper(char trame[], char *tableau[], int size);
-    char  *substr(const char *s, unsigned int debut, unsigned int fin);
-    float convertirDegreDeci(char *champ, char *indicateur);
-    void  calculerCRC(char trame[], char retour[]);
+    int   decouper(char trame[], char *tableau[],const int size);
+    char *substr(char *src, const int offset, const int length);
+    
+    double convertirDegreDeci(char *champ, char *indicateur);
+    void  calculerCRC(const char trame[], char retour[]);
 
 
 

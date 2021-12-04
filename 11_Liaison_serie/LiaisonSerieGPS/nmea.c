@@ -1,6 +1,13 @@
 #include "nmea.h"
 
-int decouper(char trame[], char *champ[], int size) {
+/**
+ * @brief Scinde une chaîne de caractères en segments
+ * @param trame une chaine de caractères à découper
+ * @param champ un tableau de chaine (char *)
+ * @param size la taille maxi du tableau à ne pas dépasser
+ * @return le nombre de champs trouvés
+ */
+int decouper(char trame[], char *champ[],const int size) {
 
     char *ptr = trame;
     char fin = 0;
@@ -35,54 +42,46 @@ int decouper(char trame[], char *champ[], int size) {
     return i;
 }
 
-// Cette fonction retourne un segment de chaine entre l'indice debut et fin.
-
-char *substr(const char *s, unsigned int debut, unsigned int fin) {
-    char *retour = NULL;
-
-    if (s != NULL && debut < fin) {
-        retour = calloc(sizeof (char) * (fin - debut + 2), sizeof (char));
-        if (retour != NULL) {
-            int i;
-            for (i = debut; i <= fin; i++) {
-                retour[i - debut] = s[i];
-            }
-            retour[i - debut] = '\0';
-        } else {
-            printf("Memoire insuffisante\n");
-            exit(-1);
+/**
+ * @brief Retourne un segment de chaîne
+ * @param src     un pointeur sur la chaine source
+ * @param offset  la chaîne retournée commencera au caractère numéro offset
+ * @param len     la chaîne retournée contiendra length caractères
+ * @return la fonction renvoie un pointeur sur la chaîne résultat dest.  
+ */
+char *substr(char *src, const int offset, const int length) {
+    char *dest = NULL;
+    if (length > 0) {
+        // allocation de mémoire avec mise à zéro          
+        dest = calloc(length + 1, sizeof (char));
+        // vérification de la réussite de l'allocation 
+        if (NULL != dest) {
+            strncat(dest, src + offset, length);
         }
     }
-    return retour;
+    return dest;
 }
 
 /**
-char *substr(char *src,int pos,int len) { 
-  char *dest=NULL;                        
-  if (len>0) {                  
-    // allocation et mise à zéro          
-    dest = calloc(len+1, 1);      
-    // vérification de la réussite de l'allocation 
-    if(NULL != dest) {
-        strncat(dest,src+pos,len);            
-    }
-  }                                       
-  return dest;  
-**/
+ * @brief fonction pour convertir valeur en degrés, sous forme décimale.
+ * @param champ de la latitude ou longitude
+ * @param indicateur 
+ * @return 
+ */
 
-float convertirDegreDeci(char *champ, char *indicateur) {
+double convertirDegreDeci(char *champ, char *indicateur) {
 
-    float retour = 0.0;
+    double retour = 0.0;
     char *degre = NULL;
     char *minute = NULL;
 
     if (strlen(champ) == 8) {
-        degre = substr(champ, 0, 1);
-        minute = substr(champ, 2, 7);
+        degre = substr(champ, 0, 2);
+        minute = substr(champ, 2, 6);
     }
     if (strlen(champ) == 9) {
-        degre = substr(champ, 0, 2);
-        minute = substr(champ, 3, 9);
+        degre = substr(champ, 0, 3);
+        minute = substr(champ, 3, 6);
     }
     retour = atof(degre) + atof(minute) / 60;
     if (!strcmp(indicateur, "S") || !strcmp(indicateur, "W")) {
@@ -99,7 +98,7 @@ float convertirDegreDeci(char *champ, char *indicateur) {
  * @param trame
  * @return le CRC
  */
-void calculerCRC(char trame[], char retour[]) {
+void calculerCRC(const char trame[], char retour[]) {
 
     char *s; // pointeur pour parcourir la trame
     // Calcul le CRC entre $ et *
@@ -108,7 +107,7 @@ void calculerCRC(char trame[], char retour[]) {
         if (*s != '$')
             crc = crc ^ *s;
     }
-    sprintf(retour,"*%02X", crc );
+    snprintf(retour, 4, "*%02X", crc);
 }
 
 

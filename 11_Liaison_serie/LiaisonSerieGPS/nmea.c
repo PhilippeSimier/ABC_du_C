@@ -75,13 +75,13 @@ double convertirDegreDeci(char *champ, char *indicateur) {
     char *degre = NULL;
     char *minute = NULL;
 
-    if (strlen(champ) == 8) {
+    if (!strcmp(indicateur, "S") || !strcmp(indicateur, "N")) {
         degre = substr(champ, 0, 2);
-        minute = substr(champ, 2, 6);
+        minute = substr(champ, 2, strlen(champ)-2 );
     }
-    if (strlen(champ) == 9) {
+    if (!strcmp(indicateur, "W") || !strcmp(indicateur, "E")) {
         degre = substr(champ, 0, 3);
-        minute = substr(champ, 3, 6);
+        minute = substr(champ, 3, strlen(champ)-3);
     }
     retour = atof(degre) + atof(minute) / 60;
     if (!strcmp(indicateur, "S") || !strcmp(indicateur, "W")) {

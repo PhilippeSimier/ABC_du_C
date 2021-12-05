@@ -98,7 +98,7 @@ double convertirDegreDeci(char *champ, char *indicateur) {
  * @param trame
  * @return le CRC
  */
-void calculerCRC(const char trame[], char retour[]) {
+void calculerCRC(char trame[], char retour[]) {
 
     char *s; // pointeur pour parcourir la trame
     // Calcul le CRC entre $ et *
@@ -108,6 +108,21 @@ void calculerCRC(const char trame[], char retour[]) {
             crc = crc ^ *s;
     }
     snprintf(retour, 4, "*%02X", crc);
+}
+
+void afficherHeure(const char champ[]){
+    
+    char *dest = NULL;
+    int nb = strlen(champ);
+    dest = calloc(nb + 3, sizeof (char));
+    
+    strcpy(dest, champ);
+    memmove( dest+3, dest+2, 8 );
+    dest[2] = ':';
+    memmove( dest+6, dest+5, 6 );
+    dest[5] = ':';
+    printf("%s\n", dest);
+    free(dest);
 }
 
 

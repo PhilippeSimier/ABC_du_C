@@ -12,7 +12,8 @@
     char *substr(char *src, const int offset, const int length);
     
     double convertirDegreDeci(char *champ, char *indicateur);
-    void  calculerCRC(const char trame[], char retour[]);
+    void  calculerCRC(char trame[], char retour[]);
+    void afficherHeure(const char champ[]);
 
 
 

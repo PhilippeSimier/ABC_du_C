@@ -30,7 +30,8 @@ int main(int argc, char** argv) {
             printf("Trame         : %s\n", champ[0]);
             printf("Nb de champs  : %d\n", nb);
             printf("CRC calculé   : %s\n", crc);
-            printf("Time UTC      : %s\n", champ[1]);  // Affichage du temps UTC
+            printf("Heure UTC     : ");
+            afficherHeure(champ[1]);  // Affichage du temps UTC
 	    printf("Latitude DM   : %s %s \n", champ[2], champ[3]);
             printf("Latitude D    : %f °\n", convertirDegreDeci(champ[2], champ[3]));
 	    printf("Longitude DM  : %s %s \n", champ[4], champ[5]);

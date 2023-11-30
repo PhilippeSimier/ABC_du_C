@@ -10,40 +10,43 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// Prototype
+int obtenirReste(int dividende, int diviseur);
+
 int main(int argc, char** argv) {
 
-    // Lire dividende
-    int dividende;
-    printf("Dividende ? ");
-    scanf(" %d", &dividende);
-
-    // Lire diviseur
-    int diviseur;
+    // Lire dividende et diviseur
+    int dividende, diviseur;
     do {
-        printf("Diviseur ? ");
-        scanf(" %d", &diviseur);
-    }    while (diviseur > dividende);
-    
+        printf("Donner deux nombres entiers ? ");
+        scanf(" %d %d", &dividende, &diviseur);
+    } while (diviseur > dividende);
+
     printf("%d %d\n", dividende, diviseur);
-    
+
     int memo;
-    while(diviseur != 0){
+    while (diviseur != 0) {
         memo = diviseur;
-        
+
         int reste = dividende;
-        do{
-            reste = reste - diviseur;
-        }       
-        while(reste >= diviseur);
-        diviseur = reste;
-        
-        // ou diviseur = dividende % diviseur;
-               
-        dividende = memo;        
+        diviseur = obtenirReste(dividende, diviseur);
+
+        dividende = memo;
     }
-    
+
     printf("PGCD est %d ", dividende);
 
     return (EXIT_SUCCESS);
+}
+
+int obtenirReste(int dividende, int diviseur) {
+    
+    int reste = dividende;
+   
+    do {
+        reste = reste - diviseur;
+    } while (reste >= diviseur);
+
+    return reste;
 }
 

@@ -18,6 +18,7 @@ int main(int argc, char** argv) {
     int ancienAvant;
     double nbOr = 1.61803398875;
     double g;
+    double racine5 = sqrt(5);
     
     printf("Combien de lignes ? ");
     scanf (" %d",&nbr);
@@ -35,7 +36,7 @@ int main(int argc, char** argv) {
             resultat = ancien + ancienAvant;
             ancienAvant = ancien;
             ancien = resultat;
-            g = pow(nbOr,indice)/ 2.236067977;
+            g = pow(nbOr,indice)/ racine5;
             printf("F%2d -> %d -> %.2f\r\n",indice, resultat, g);
         }
     }

@@ -17,10 +17,15 @@ int main(int argc, char** argv) {
 
     // Lire dividende et diviseur
     int dividende, diviseur;
-    do {
-        printf("Donner deux nombres entiers ? ");
-        scanf(" %d %d", &dividende, &diviseur);
-    } while (diviseur > dividende);
+
+    printf("Donner deux nombres entiers ? ");
+    scanf(" %d %d", &dividende, &diviseur);
+    if (diviseur > dividende){
+        // Permutation
+        int temp = diviseur;  // etape 1
+        diviseur = dividende; // étape 2
+        dividende = temp;     // étape 3
+    }
 
     printf("%d %d\n", dividende, diviseur);
 
@@ -29,7 +34,7 @@ int main(int argc, char** argv) {
         memo = diviseur;
 
         int reste = dividende;
-        diviseur = obtenirReste(dividende, diviseur);
+        diviseur = dividende % diviseur;
 
         dividende = memo;
     }
@@ -40,9 +45,9 @@ int main(int argc, char** argv) {
 }
 
 int obtenirReste(int dividende, int diviseur) {
-    
+
     int reste = dividende;
-   
+
     do {
         reste = reste - diviseur;
     } while (reste >= diviseur);
